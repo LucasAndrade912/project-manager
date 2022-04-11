@@ -1,2 +1,5 @@
 export { default as GoogleIcon } from './google-icon.svg'
 export { default as LogoIcon } from './logo.svg'
+export { default as LogoutIcon } from './log-out.svg'
+export { default as NewProjectIcon } from './new-project.svg'
+export { default as FilterIcon } from './filter.svg'
