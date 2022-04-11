@@ -14,8 +14,12 @@ export const LoginWrapper = styled.div`
   background-color: #FFF;
 `
 
+export const Title = styled.h1`
+  font-size: 2.5rem;
+`
+
 export const Welcome = styled.span`
-  font-size: 0.625rem;
+  font-size: 0.875rem;
   margin: 64px 0;
 `
 
@@ -26,8 +30,8 @@ export const LoginButton = styled.button`
   border: none;
   border-radius: 5px;
   box-shadow: 0px 3px 4px rgba(0, 0, 0, 0.2);
-  font-size: 0.75rem;
-  padding: 0.5rem;
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
   background-color: #EEE;
   transition: .1s;
 
@@ -37,7 +41,7 @@ export const LoginButton = styled.button`
 `
 
 export const Icon = styled.img`
-  width: 1.25rem;
+  width: 1.875rem;
   margin-right: 0.5rem;
 `
 

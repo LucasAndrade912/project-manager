@@ -2,7 +2,14 @@ import React from 'react'
 
 import { LogoIcon, NewProjectIcon, FilterIcon, LogoutIcon } from '../../assets'
 
-import { Container, Menu, Logo, Buttons, Button, ButtonIcon } from './styles'
+import {
+	Container,
+	Menu,
+	Logo,
+	Buttons,
+	Button,
+	ButtonIcon
+} from './styles'
 
 const Projects = () => {
 	return (

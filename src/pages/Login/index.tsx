@@ -5,6 +5,7 @@ import { GoogleIcon, LogoIcon } from '../../assets'
 import {
 	Container,
 	LoginWrapper,
+	Title,
 	Welcome,
 	LoginButton,
 	Icon,
@@ -16,7 +17,7 @@ const Login = () => {
 	return (
 		<Container>
 			<LoginWrapper>
-				<h1>Project Manager</h1>
+				<Title>Project Manager</Title>
 
 				<Welcome>
 					Gerencie seus projetos com Project Manager!

@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-export const Container = styled.main`
+export const Container = styled.div`
   width: 100%;
   display: flex;
 `
@@ -14,8 +14,8 @@ export const Menu = styled.div`
 `
 
 export const Logo = styled.img`
-  width: 3.75rem;
-  margin-bottom: 5rem;
+  width: 5rem;
+  margin-bottom: 10rem;
 `
 
 export const Buttons = styled.div`
@@ -26,8 +26,8 @@ export const Buttons = styled.div`
 
 export const Button = styled.button`
   cursor: pointer;
-  width: 1.875rem;
-  height: 1.875rem;
+  width: 2.5rem;
+  height: 2.5rem;
   border: none;
   border-radius: 50%;
   display: flex;
@@ -35,7 +35,7 @@ export const Button = styled.button`
   align-items: center;
   background-color: #1A51AB;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.25);
-  margin-bottom: 2.5rem;
+  margin-bottom: 3.75rem;
   transition: 0.1s;
   
   :hover {
@@ -44,5 +44,5 @@ export const Button = styled.button`
 `
 
 export const ButtonIcon = styled.img`
-  width: 1.125rem;
+  width: 1.5rem;
 `
