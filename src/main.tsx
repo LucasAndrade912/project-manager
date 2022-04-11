@@ -1,12 +1,12 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import App from './App'
+import Login from './pages/Login'
 import GlobalStyle from './global/globalStyle'
 
 ReactDOM.render(
 	<React.StrictMode>
 		<GlobalStyle />
-		<App />
+		<Login />
 	</React.StrictMode>,
 	document.getElementById('root')
 )
