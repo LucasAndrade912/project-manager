@@ -46,3 +46,23 @@ export const Button = styled.button`
 export const ButtonIcon = styled.img`
   width: 1.5rem;
 `
+
+export const Main = styled.main`
+  width: 100%;
+  padding: 2.5rem;
+`
+
+export const Title = styled.h1`
+  font-size: 2.125rem;
+  font-weight: normal;
+  margin-bottom: 2.5rem;
+`
+
+export const AllProjects = styled.div`
+  display: flex;
+  justify-content: space-between;
+`
+
+export const ProjectsWrapper = styled.div`
+  width: 32%;
+`

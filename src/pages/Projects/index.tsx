@@ -1,6 +1,7 @@
 import React from 'react'
 
 import { LogoIcon, NewProjectIcon, FilterIcon, LogoutIcon } from '../../assets'
+import { Project } from '../../components'
 
 import {
 	Container,
@@ -8,7 +9,11 @@ import {
 	Logo,
 	Buttons,
 	Button,
-	ButtonIcon
+	ButtonIcon,
+	Main,
+	Title,
+	AllProjects,
+	ProjectsWrapper
 } from './styles'
 
 const Projects = () => {
@@ -31,6 +36,30 @@ const Projects = () => {
 					</Button>
 				</Buttons>
 			</Menu>
+			
+			<Main>
+				<Title>My Projects</Title>
+
+				<AllProjects>
+					<ProjectsWrapper>
+						<p>To do</p>
+						<Project />
+						<Project />
+					</ProjectsWrapper>
+
+					<ProjectsWrapper>
+						<p>In progress</p>
+						<Project />
+						<Project />
+						<Project />
+					</ProjectsWrapper>
+
+					<ProjectsWrapper>
+						<p>Done</p>
+						<Project />
+					</ProjectsWrapper>
+				</AllProjects>
+			</Main>
 		</Container>
 	)
 }
