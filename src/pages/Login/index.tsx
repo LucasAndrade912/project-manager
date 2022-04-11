@@ -30,7 +30,7 @@ const Login = () => {
 			</LoginWrapper>
 
 			<LogoWrapper>
-				<Logo src={LogoIcon} alt="Logo" />
+				<Logo src={LogoIcon} alt="Project Manager icon" />
 			</LogoWrapper>
 		</Container>
 	)

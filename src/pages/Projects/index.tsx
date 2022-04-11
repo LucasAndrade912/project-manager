@@ -8,19 +8,19 @@ const Projects = () => {
 	return (
 		<Container>
 			<Menu>
-				<Logo src={LogoIcon} alt="Logo" />
+				<Logo src={LogoIcon} alt="Project Manager Icon" />
 
 				<Buttons>
 					<Button>
-						<ButtonIcon src={NewProjectIcon} />
+						<ButtonIcon src={NewProjectIcon} alt="New project icon" />
 					</Button>
 
 					<Button>
-						<ButtonIcon src={FilterIcon} />
+						<ButtonIcon src={FilterIcon} alt="Filter icon" />
 					</Button>
 
 					<Button>
-						<ButtonIcon src={LogoutIcon} />
+						<ButtonIcon src={LogoutIcon} alt="Log out icon" />
 					</Button>
 				</Buttons>
 			</Menu>
