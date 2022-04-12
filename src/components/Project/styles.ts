@@ -7,6 +7,10 @@ export const Container = styled.div`
   border-radius: 5px;
   box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.15);
   margin-top: 2rem;
+  
+  :hover {
+    cursor: move;
+  }
 `
 
 export const ProjectTitle = styled.h2`
