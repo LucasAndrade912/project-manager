@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { LogoIcon, NewProjectIcon, FilterIcon, LogoutIcon } from '../../assets'
-import { Project } from '../../components'
+import { Project, Status } from '../../components'
 
 import {
 	Container,
@@ -42,20 +42,20 @@ const Projects = () => {
 
 				<AllProjects>
 					<ProjectsWrapper>
-						<p>To do</p>
+						<Status status="to-do" />
 						<Project />
 						<Project />
 					</ProjectsWrapper>
 
 					<ProjectsWrapper>
-						<p>In progress</p>
+						<Status status="in-progress" />
 						<Project />
 						<Project />
 						<Project />
 					</ProjectsWrapper>
 
 					<ProjectsWrapper>
-						<p>Done</p>
+						<Status status="done" />
 						<Project />
 					</ProjectsWrapper>
 				</AllProjects>
