@@ -6,7 +6,7 @@ export const Container = styled.div`
   padding: 1rem;
   border-radius: 5px;
   box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.15);
-  margin-bottom: 1rem;
+  margin-top: 2rem;
 `
 
 export const ProjectTitle = styled.h2`

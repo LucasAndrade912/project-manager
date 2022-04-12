@@ -64,5 +64,5 @@ export const AllProjects = styled.div`
 `
 
 export const ProjectsWrapper = styled.div`
-  width: 32%;
+  width: 30%;
 `
