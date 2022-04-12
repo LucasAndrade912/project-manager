@@ -1,15 +1,9 @@
 import React from 'react'
 
-import { LogoIcon, NewProjectIcon, FilterIcon, LogoutIcon } from '../../assets'
-import { Project, Status } from '../../components'
+import { Project, Status, Menu } from '../../components'
 
 import {
 	Container,
-	Menu,
-	Logo,
-	Buttons,
-	Button,
-	ButtonIcon,
 	Main,
 	Title,
 	AllProjects,
@@ -19,24 +13,8 @@ import {
 const Projects = () => {
 	return (
 		<Container>
-			<Menu>
-				<Logo src={LogoIcon} alt="Project Manager Icon" />
+			<Menu />
 
-				<Buttons>
-					<Button>
-						<ButtonIcon src={NewProjectIcon} alt="New project icon" />
-					</Button>
-
-					<Button>
-						<ButtonIcon src={FilterIcon} alt="Filter icon" />
-					</Button>
-
-					<Button>
-						<ButtonIcon src={LogoutIcon} alt="Log out icon" />
-					</Button>
-				</Buttons>
-			</Menu>
-			
 			<Main>
 				<Title>My Projects</Title>
 
