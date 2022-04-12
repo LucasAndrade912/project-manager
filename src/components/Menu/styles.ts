@@ -1,6 +1,8 @@
 import styled from 'styled-components'
 
 export const Container = styled.div`
+  position: sticky;
+  top: 0;
   display: flex;
   flex-direction: column;
   height: 100vh;
