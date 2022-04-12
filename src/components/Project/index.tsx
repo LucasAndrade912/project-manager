@@ -1,11 +1,14 @@
 import React from 'react'
 
-import { Container, ProjectTitle, ProjectDescription } from './styles'
+import { ExampleImage } from '../../assets'
+import { Container, Image, ProjectTitle, ProjectDescription } from './styles'
 import Tag from '../Tag'
 
 const Project = () => {
 	return (
 		<Container>
+			<Image src={ExampleImage} alt="Example Image" />
+
 			<ProjectTitle>
         Project Test
 			</ProjectTitle>

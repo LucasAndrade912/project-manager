@@ -13,9 +13,16 @@ export const Container = styled.div`
   }
 `
 
+export const Image = styled.img`
+  width: 100%;
+  height: 6.25rem;
+  object-fit: cover;
+  border-radius: 5px;
+`
+
 export const ProjectTitle = styled.h2`
   font-weight: normal;
-  margin-bottom: 1rem;
+  margin: 1rem 0;
 `
 
 export const ProjectDescription = styled.p`
