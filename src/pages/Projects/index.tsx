@@ -1,9 +1,8 @@
 import React from 'react'
 
-import { Project, Status, Menu } from '../../components'
+import { Project, Status } from '../../components'
 
 import {
-	Container,
 	Main,
 	Title,
 	AllProjects,
@@ -12,9 +11,7 @@ import {
 
 const Projects = () => {
 	return (
-		<Container>
-			<Menu />
-
+		<>
 			<Main>
 				<Title>My Projects</Title>
 
@@ -38,7 +35,7 @@ const Projects = () => {
 					</ProjectsWrapper>
 				</AllProjects>
 			</Main>
-		</Container>
+		</>
 	)
 }
 

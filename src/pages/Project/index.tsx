@@ -1,9 +1,9 @@
 import React from 'react'
 
-import { Menu, Status, Tag, Task } from '../../components'
+import { Status, Tag, Task } from '../../components'
 import { ExampleImage } from '../../assets'
 
-import { Container, Main } from '../Projects/styles'
+import { Main } from '../Projects/styles'
 import {
 	ProjectTitle,
 	Image,
@@ -15,9 +15,7 @@ import {
 
 const Project = () => {
 	return (
-		<Container>
-			<Menu />
-
+		<>
 			<Main>
 				<Image src={ExampleImage} alt="Example Image" />
 
@@ -48,7 +46,7 @@ const Project = () => {
 					<Task task="Task 3" finished={false} />
 				</Tasks>
 			</Main>			
-		</Container>
+		</>
 	)
 }
 
