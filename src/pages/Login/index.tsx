@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 import { GoogleIcon, LogoIcon } from '../../assets'
 
@@ -23,11 +24,13 @@ const Login = () => {
 					Gerencie seus projetos com Project Manager!
 				</Welcome>
 
-				<LoginButton>
-					<Icon src={GoogleIcon} alt="Google Icon" />
+				<Link to="/app">
+					<LoginButton>
+						<Icon src={GoogleIcon} alt="Google Icon" />
 
-					Log in with Google
-				</LoginButton>
+							Log in with Google
+					</LoginButton>
+				</Link>
 			</LoginWrapper>
 
 			<LogoWrapper>

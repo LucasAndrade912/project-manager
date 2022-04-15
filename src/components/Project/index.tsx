@@ -1,5 +1,7 @@
 import React from 'react'
 
+import { Link } from 'react-router-dom'
+
 import { ExampleImage } from '../../assets'
 import { Container, Image, ProjectTitle, ProjectDescription } from './styles'
 import Tag from '../Tag'
@@ -9,9 +11,11 @@ const Project = () => {
 		<Container>
 			<Image src={ExampleImage} alt="Example Image" />
 
-			<ProjectTitle>
-        Project Test
-			</ProjectTitle>
+			<Link to="/app/project">
+				<ProjectTitle>
+					Project Test
+				</ProjectTitle>
+			</Link>
       
 			<ProjectDescription>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione est maiores cupiditate!
