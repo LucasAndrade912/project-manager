@@ -8,8 +8,14 @@ const GlobalStyled = createGlobalStyle`
   }
   
   body {
+    color: #0D0D0D;
     background-color: #EEE;
     font-family: 'Poppins', sans-serif;
+  }
+
+  a {
+    color: #0D0D0D;
+    text-decoration: none;
   }
 `
 
