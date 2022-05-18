@@ -1,6 +1,7 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { signInWithPopup } from 'firebase/auth'
 
+import { auth, provider } from '../../firebase'
 import { GoogleIcon, LogoIcon } from '../../assets'
 
 import {
@@ -15,6 +16,16 @@ import {
 } from './styles'
 
 const Login = () => {
+	async function handleUserLogin() {
+		try {
+			const { user } = await signInWithPopup(auth, provider)
+
+			console.log(user)
+		} catch (err) {
+			console.log(err)
+		}
+	}
+
 	return (
 		<Container>
 			<LoginWrapper>
@@ -24,13 +35,11 @@ const Login = () => {
 					Gerencie seus projetos com Project Manager!
 				</Welcome>
 
-				<Link to="/app">
-					<LoginButton>
-						<Icon src={GoogleIcon} alt="Google Icon" />
+				<LoginButton onClick={handleUserLogin}>
+					<Icon src={GoogleIcon} alt="Google Icon" />
 
-							Log in with Google
-					</LoginButton>
-				</Link>
+						Log in with Google
+				</LoginButton>
 			</LoginWrapper>
 
 			<LogoWrapper>
