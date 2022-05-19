@@ -12,9 +12,9 @@ const routes = () => {
 			<BrowserRouter>
 				<Routes>
 					<Route path="/" element={<Login />} />
-					<Route path="/app" element={<App />}>
-						<Route path="/app/projects" element={<Projects />} />
-						<Route path="/app/project" element={<Project />} />
+					<Route path="app" element={<App />}>
+						<Route path="projects" element={<Projects />} />
+						<Route path="project" element={<Project />} />
 					</Route>
 				</Routes>
 			</BrowserRouter>
