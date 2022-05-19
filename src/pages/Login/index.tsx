@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { useNavigate, Navigate } from 'react-router-dom'
 import { signInWithPopup } from 'firebase/auth'
 
 import { auth, provider } from '../../firebase'
@@ -14,16 +15,25 @@ import {
 	LogoWrapper,
 	Logo
 } from './styles'
+import { AuthContext } from '../../routes'
+
 
 const Login = () => {
+	const authContext = useContext(AuthContext)
+	const navigate = useNavigate()
+
 	async function handleUserLogin() {
 		try {
-			const { user } = await signInWithPopup(auth, provider)
+			await signInWithPopup(auth, provider)
 
-			console.log(user)
+			navigate('/app/projects')
 		} catch (err) {
 			console.log(err)
 		}
+	}
+
+	if (authContext?.isAuth) {
+		return <Navigate to="/app/projects" />
 	}
 
 	return (

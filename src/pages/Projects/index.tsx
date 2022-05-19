@@ -1,6 +1,8 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { Navigate } from 'react-router-dom'
 
 import { Project, Status } from '../../components'
+import { AuthContext } from '../../routes'
 
 import {
 	Main,
@@ -10,6 +12,12 @@ import {
 } from './styles'
 
 const Projects = () => {
+	const authContext = useContext(AuthContext)
+
+	if (!authContext?.isAuth) {
+		return <Navigate to="/" />
+	}
+
 	return (
 		<>
 			<Main>
