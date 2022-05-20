@@ -2,23 +2,30 @@ import React from 'react'
 
 import { Link } from 'react-router-dom'
 
-import { ExampleImage } from '../../assets'
 import { Container, Image, ProjectTitle, ProjectDescription } from './styles'
 import Tag from '../Tag'
 
-const Project = () => {
+interface ProjectProps {
+	title: string
+	description: string
+	image?: string
+}
+
+const Project = ({ title, description, image }: ProjectProps) => {
 	return (
 		<Container>
-			<Image src={ExampleImage} alt="Example Image" />
+			{ image && (
+				<Image src={image} alt="Project image" />
+			) }
 
 			<Link to="/app/project">
 				<ProjectTitle>
-					Project Test
+					{ title }
 				</ProjectTitle>
 			</Link>
       
 			<ProjectDescription>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione est maiores cupiditate!
+				{ description }
 			</ProjectDescription>
 
 			<Tag name="UI Design" color="#FF6262" />

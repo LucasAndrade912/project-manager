@@ -2,6 +2,7 @@ import React, { useContext } from 'react'
 import { Navigate } from 'react-router-dom'
 
 import { Project, Status } from '../../components'
+import { useFetchProjects } from '../../hooks/useFetchProjects'
 import { AuthContext } from '../../routes'
 
 import {
@@ -13,6 +14,43 @@ import {
 
 const Projects = () => {
 	const authContext = useContext(AuthContext)
+	const projects = useFetchProjects('/projects')
+
+	const projectsWithStatusToDo = projects?.map(project => {
+		if (project.status === 'to-do') {
+			return (
+				<Project
+					key={project.id}
+					title={project.title}
+					description={project.description}
+				/>
+			)
+		}
+	})
+
+	const projectsWithStatusInProgress = projects?.map(project => {
+		if (project.status === 'in-progress') {
+			return (
+				<Project
+					key={project.id}
+					title={project.title}
+					description={project.description}
+				/>
+			)
+		}
+	})
+
+	const projectsWithStatusDone = projects?.map(project => {
+		if (project.status === 'done') {
+			return (
+				<Project
+					key={project.id}
+					title={project.title}
+					description={project.description}
+				/>
+			)
+		}
+	})
 
 	if (!authContext?.isAuth) {
 		return <Navigate to="/" />
@@ -26,20 +64,17 @@ const Projects = () => {
 				<AllProjects>
 					<ProjectsWrapper>
 						<Status status="to-do" />
-						<Project />
-						<Project />
+						{ projectsWithStatusToDo }
 					</ProjectsWrapper>
 
 					<ProjectsWrapper>
 						<Status status="in-progress" />
-						<Project />
-						<Project />
-						<Project />
+						{ projectsWithStatusInProgress }
 					</ProjectsWrapper>
 
 					<ProjectsWrapper>
 						<Status status="done" />
-						<Project />
+						{ projectsWithStatusDone }
 					</ProjectsWrapper>
 				</AllProjects>
 			</Main>
