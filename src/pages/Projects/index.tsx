@@ -16,41 +16,25 @@ const Projects = () => {
 	const authContext = useContext(AuthContext)
 	const projects = useFetchProjects('/projects')
 
-	const projectsWithStatusToDo = projects?.map(project => {
-		if (project.status === 'to-do') {
-			return (
-				<Project
-					key={project.id}
-					title={project.title}
-					description={project.description}
-				/>
-			)
-		}
-	})
+	const mapProjectsByStatus = (status: 'to-do' | 'in-progress' | 'done') => {
+		return projects?.map(project => {
+			if (project.status === status) {
+				return (
+					<Project
+						key={project.id}
+						title={project.title}
+						description={project.description}
+						image={project.image}
+						tags={project.tags}
+					/>
+				)
+			}
+		})
+	}
 
-	const projectsWithStatusInProgress = projects?.map(project => {
-		if (project.status === 'in-progress') {
-			return (
-				<Project
-					key={project.id}
-					title={project.title}
-					description={project.description}
-				/>
-			)
-		}
-	})
-
-	const projectsWithStatusDone = projects?.map(project => {
-		if (project.status === 'done') {
-			return (
-				<Project
-					key={project.id}
-					title={project.title}
-					description={project.description}
-				/>
-			)
-		}
-	})
+	const projectsWithStatusToDo = mapProjectsByStatus('to-do')
+	const projectsWithStatusInProgress = mapProjectsByStatus('in-progress')
+	const projectsWithStatusDone = mapProjectsByStatus('done')
 
 	if (!authContext?.isAuth) {
 		return <Navigate to="/" />

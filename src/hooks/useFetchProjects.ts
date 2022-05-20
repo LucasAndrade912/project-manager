@@ -6,12 +6,18 @@ interface AxiosResponseData {
 	projects: ProjectData[]
 }
 
+interface TagProps {
+	tag_name: string
+	color: { color_name: string }
+}
+
 interface ProjectData {
 	id: string
 	title: string
 	description: string
 	status: 'to-do' | 'in-progress' | 'done'
 	image?: string
+	tags?: TagProps[]
 }
 
 export function useFetchProjects(resource: string) {
