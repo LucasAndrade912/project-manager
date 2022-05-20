@@ -7,7 +7,8 @@ export const Container = styled.div`
   margin-top: 1rem;
   margin-right: 0.75rem;
   padding: 0.5rem;
-  border-radius: 5px;
+  border-radius: 3px;
+  font-size: 0.875rem;
   background-color: ${({ color }: ITag) => {
 		return color
 	}}
