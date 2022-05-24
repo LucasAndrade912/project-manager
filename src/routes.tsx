@@ -1,5 +1,7 @@
 import React, { createContext, useState } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { DndProvider } from 'react-dnd'
+import { HTML5Backend } from 'react-dnd-html5-backend'
 import { auth } from './firebase'
 
 import { App, Login, Project, Projects } from './pages'
@@ -23,13 +25,15 @@ const routes = () => {
 	return (
 		<BrowserRouter>
 			<AuthContext.Provider value={{ isAuth, setIsAuth }}>
-				<Routes>
-					<Route path="/" element={<Login />} />
-					<Route path="app" element={<App />}>
-						<Route path="projects" element={<Projects />} />
-						<Route path="project" element={<Project />} />
-					</Route>
-				</Routes>
+				<DndProvider backend={HTML5Backend}>
+					<Routes>
+						<Route path="/" element={<Login />} />
+						<Route path="app" element={<App />}>
+							<Route path="projects" element={<Projects />} />
+							<Route path="project" element={<Project />} />
+						</Route>
+					</Routes>
+				</DndProvider>
 			</AuthContext.Provider>
 		</BrowserRouter>
 	)
