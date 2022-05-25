@@ -36,7 +36,7 @@ const Project = ({ id, title, description, status, image, tags, tasks }: Project
 	return (
 		<Container ref={dragRef}>
 			{ image && (
-				<Image src={image} alt="Project image" />
+				<Image src={image} alt="Project image" loading="lazy" />
 			) }
 
 			<ProjectTitle
