@@ -11,7 +11,7 @@ interface TagProps {
 	color: { color_name: string }
 }
 
-interface ProjectData {
+export interface ProjectData {
 	id: string
 	title: string
 	description: string
