@@ -2,7 +2,9 @@ import React, { useState, useEffect, useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import { ProjectsGroup } from '../../components'
+import { auth } from '../../firebase'
 import { ProjectData, useFetchProjects } from '../../hooks/useFetchProjects'
+import { api } from '../../lib/api'
 import { AuthContext } from '../../routes'
 
 import {
@@ -27,7 +29,7 @@ const Projects = () => {
 		return myProjects?.filter(project => project.status === status && project)
 	}
 
-	const updateProject = (data: ProjectData, boardStatus: 'to-do' | 'in-progress' | 'done') => {
+	const updateProject = async (data: ProjectData, boardStatus: 'to-do' | 'in-progress' | 'done') => {
 		const updatedProject = {...data}
 		updatedProject.status = boardStatus
 
@@ -40,6 +42,17 @@ const Projects = () => {
 
 			setProjects(copyProjects)
 		}
+
+		const tokenId = await auth.currentUser?.getIdToken()
+
+		await api.put('/projects', {
+			idProject: data.id,
+			changes: {
+				status: boardStatus
+			}
+		}, {
+			headers: { 'Authorization': `Bearer ${tokenId}` }
+		})
 	}
 
 	useEffect(() => {
