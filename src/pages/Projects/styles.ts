@@ -15,7 +15,3 @@ export const AllProjects = styled.div`
   display: flex;
   justify-content: space-between;
 `
-
-export const ProjectsWrapper = styled.div`
-  width: 30%;
-`

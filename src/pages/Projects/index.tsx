@@ -1,44 +1,60 @@
-import React, { useContext } from 'react'
-import { Navigate } from 'react-router-dom'
+import React, { useState, useEffect, useContext } from 'react'
+import { useNavigate } from 'react-router-dom'
 
-import { Project, Status } from '../../components'
-import { useFetchProjects } from '../../hooks/useFetchProjects'
+import { ProjectsGroup } from '../../components'
+import { ProjectData, useFetchProjects } from '../../hooks/useFetchProjects'
 import { AuthContext } from '../../routes'
 
 import {
 	Main,
 	Title,
-	AllProjects,
-	ProjectsWrapper
+	AllProjects
 } from './styles'
 
+export interface ProjectsTypes {
+	'to-do': ProjectData[] | undefined
+	'in-progress': ProjectData[] | undefined
+	'done': ProjectData[] | undefined
+}
+
 const Projects = () => {
+	const [projects, setProjects] = useState<ProjectsTypes>()
+	const navigate = useNavigate()
+	const myProjects = useFetchProjects('/projects')
 	const authContext = useContext(AuthContext)
-	const projects = useFetchProjects('/projects')
 
 	const mapProjectsByStatus = (status: 'to-do' | 'in-progress' | 'done') => {
-		return projects?.map(project => {
-			if (project.status === status) {
-				return (
-					<Project
-						key={project.id}
-						title={project.title}
-						description={project.description}
-						image={project.image}
-						tags={project.tags}
-					/>
-				)
-			}
+		return myProjects?.filter(project => project.status === status && project)
+	}
+
+	const updateProject = (data: ProjectData, boardStatus: 'to-do' | 'in-progress' | 'done') => {
+		const updatedProject = {...data}
+		updatedProject.status = boardStatus
+
+		if (projects) {
+			const copyProjects = {...projects}
+			copyProjects[data.status] = copyProjects[data.status]?.filter(project => {
+				return project.id !== data.id
+			})
+			copyProjects[boardStatus]?.unshift(updatedProject)
+
+			setProjects(copyProjects)
+		}
+	}
+
+	useEffect(() => {
+		setProjects({
+			'to-do': mapProjectsByStatus('to-do'),
+			'in-progress': mapProjectsByStatus('in-progress'),
+			'done': mapProjectsByStatus('done')
 		})
-	}
+	}, [myProjects])
 
-	const projectsWithStatusToDo = mapProjectsByStatus('to-do')
-	const projectsWithStatusInProgress = mapProjectsByStatus('in-progress')
-	const projectsWithStatusDone = mapProjectsByStatus('done')
-
-	if (!authContext?.isAuth) {
-		return <Navigate to="/" />
-	}
+	useEffect(() => {
+		if (!authContext?.isAuth) {
+			navigate('/')
+		}
+	}, [authContext])
 
 	return (
 		<>
@@ -46,20 +62,23 @@ const Projects = () => {
 				<Title>My Projects</Title>
 
 				<AllProjects>
-					<ProjectsWrapper>
-						<Status status="to-do" />
-						{ projectsWithStatusToDo }
-					</ProjectsWrapper>
+					<ProjectsGroup
+						status="to-do"
+						data={projects?.['to-do']}
+						updateData={updateProject}
+					/>
 
-					<ProjectsWrapper>
-						<Status status="in-progress" />
-						{ projectsWithStatusInProgress }
-					</ProjectsWrapper>
+					<ProjectsGroup
+						status="in-progress"
+						data={projects?.['in-progress']}
+						updateData={updateProject}
+					/>
 
-					<ProjectsWrapper>
-						<Status status="done" />
-						{ projectsWithStatusDone }
-					</ProjectsWrapper>
+					<ProjectsGroup
+						status="done"
+						data={projects?.done}
+						updateData={updateProject}
+					/>
 				</AllProjects>
 			</Main>
 		</>
