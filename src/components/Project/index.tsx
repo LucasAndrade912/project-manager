@@ -1,5 +1,5 @@
 import React from 'react'
-
+import { useDrag } from 'react-dnd'
 import { Link } from 'react-router-dom'
 
 import { Container, Image, ProjectTitle, ProjectDescription } from './styles'
@@ -11,15 +11,22 @@ interface TagProps {
 }
 
 interface ProjectProps {
+	id: string
 	title: string
 	description: string
+	status: 'to-do' | 'in-progress' | 'done'
 	image?: string
 	tags?: TagProps[]
 }
 
-const Project = ({ title, description, image, tags }: ProjectProps) => {
+const Project = ({ id, title, description, status, image, tags }: ProjectProps) => {
+	const [, dragRef] = useDrag({
+		type: 'project',
+		item: { id, title, description, status, image, tags }
+	})
+
 	return (
-		<Container>
+		<Container ref={dragRef}>
 			{ image && (
 				<Image src={image} alt="Project image" />
 			) }
