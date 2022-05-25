@@ -23,6 +23,11 @@ export const Image = styled.img`
 export const ProjectTitle = styled.h2`
   font-weight: normal;
   margin: 1rem 0;
+  
+  :hover {
+    cursor: pointer;
+    text-decoration: underline;
+  }
 `
 
 export const ProjectDescription = styled.p`
