@@ -1,9 +1,9 @@
 import React, { createContext, useState } from 'react'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, Outlet } from 'react-router-dom'
 import { DndProvider } from 'react-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
-import { auth } from './firebase'
 
+import { auth } from './firebase'
 import { App, Login, Project, Projects } from './pages'
 
 interface AuthContextProps {
@@ -30,7 +30,9 @@ const routes = () => {
 						<Route path="/" element={<Login />} />
 						<Route path="app" element={<App />}>
 							<Route path="projects" element={<Projects />} />
-							<Route path="project" element={<Project />} />
+							<Route path="project" element={<Outlet />}>
+								<Route path=":projectId" element={<Project />} />
+							</Route>
 						</Route>
 					</Routes>
 				</DndProvider>

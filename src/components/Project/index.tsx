@@ -1,6 +1,6 @@
 import React from 'react'
 import { useDrag } from 'react-dnd'
-import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 import { Container, Image, ProjectTitle, ProjectDescription } from './styles'
 import Tag from '../Tag'
@@ -10,6 +10,12 @@ interface TagProps {
 	color: { color_name: string }
 }
 
+interface TaskProps {
+	id: number
+	task_name: string
+	finished: boolean
+}
+
 interface ProjectProps {
 	id: string
 	title: string
@@ -17,12 +23,14 @@ interface ProjectProps {
 	status: 'to-do' | 'in-progress' | 'done'
 	image?: string
 	tags?: TagProps[]
+	tasks?: TaskProps[]
 }
 
-const Project = ({ id, title, description, status, image, tags }: ProjectProps) => {
+const Project = ({ id, title, description, status, image, tags, tasks }: ProjectProps) => {
+	const navigate = useNavigate()
 	const [, dragRef] = useDrag({
 		type: 'project',
-		item: { id, title, description, status, image, tags }
+		item: { id, title, description, status, image, tags, tasks }
 	})
 
 	return (
@@ -31,11 +39,13 @@ const Project = ({ id, title, description, status, image, tags }: ProjectProps) 
 				<Image src={image} alt="Project image" />
 			) }
 
-			<Link to="/app/project">
-				<ProjectTitle>
-					{ title }
-				</ProjectTitle>
-			</Link>
+			<ProjectTitle
+				onClick={() => {
+					navigate(`/app/project/${id}`, { state: { id, title, description, status, image, tags, tasks } })
+				}}
+			>
+				{ title }
+			</ProjectTitle>
       
 			<ProjectDescription>
 				{ description }

@@ -11,6 +11,12 @@ interface TagProps {
 	color: { color_name: string }
 }
 
+interface TaskProps {
+	id: number
+	task_name: string
+	finished: boolean
+}
+
 export interface ProjectData {
 	id: string
 	title: string
@@ -18,6 +24,7 @@ export interface ProjectData {
 	status: 'to-do' | 'in-progress' | 'done'
 	image?: string
 	tags?: TagProps[]
+	tasks?: TaskProps[]
 }
 
 export function useFetchProjects(resource: string) {

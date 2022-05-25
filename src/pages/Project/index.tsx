@@ -1,9 +1,9 @@
 import React from 'react'
+import { useLocation } from 'react-router-dom'
 
 import { Status, Tag, Task } from '../../components'
-import { ExampleImage } from '../../assets'
-
 import { Main } from '../Projects/styles'
+
 import {
 	ProjectTitle,
 	Image,
@@ -12,25 +12,37 @@ import {
 	AddTaskButton,
 	Tasks
 } from './styles'
+import { ProjectData } from '../../hooks/useFetchProjects'
 
 const Project = () => {
+	const project = useLocation().state as ProjectData
+
+	const { image, title, status, description, tags, tasks } = project
+
 	return (
 		<>
 			<Main>
-				<Image src={ExampleImage} alt="Example Image" />
+				{ image && <Image src={image} alt="Project Image" /> }
 
 				<ProjectTitle>
-          My Project
+					{ title }
 
-					<Status status="to-do" />
+					<Status status={status} />
 				</ProjectTitle>
 
 				<ProjectDescription>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum perferendis dolorem.
+					{ description }
 				</ProjectDescription>
 
-				<Tag name="UI Design" color="#FF6262" />
-				<Tag name="UX Design" color="#27FD89" />
+				{
+					tags?.map(tag => (
+						<Tag
+							key={tag.tag_name}
+							name={tag.tag_name}
+							color={tag.color.color_name}
+						/>
+					))
+				}
 
 				<Subtitle>
           Tasks
@@ -41,9 +53,11 @@ const Project = () => {
 				</Subtitle>
 
 				<Tasks>
-					<Task task="Task 1" finished={true} />
-					<Task task="Task 2" finished={true} />
-					<Task task="Task 3" finished={false} />
+					{
+						tasks?.map(task => (
+							<Task key={task.id} task={task.task_name} finished={task.finished} />
+						))
+					}
 				</Tasks>
 			</Main>			
 		</>
