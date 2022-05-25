@@ -1,5 +1,6 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { signOut } from 'firebase/auth'
 
 import { LogoIcon, NewProjectIcon, FilterIcon, LogoutIcon } from '../../assets'
 
@@ -10,8 +11,16 @@ import {
 	Button,
 	ButtonIcon
 } from './styles'
+import { auth } from '../../firebase'
 
 const Menu = () => {
+	const navigate = useNavigate()
+
+	async function logOut() {
+		await signOut(auth)
+		navigate('/')
+	}
+
 	return (
 		<Container>
 			<Link to="/app/projects">
@@ -27,10 +36,8 @@ const Menu = () => {
 					<ButtonIcon src={FilterIcon} alt="Filter icon" />
 				</Button>
 
-				<Button>
-					<Link to="/">
-						<ButtonIcon src={LogoutIcon} alt="Log out icon" />
-					</Link>
+				<Button onClick={logOut}>
+					<ButtonIcon src={LogoutIcon} alt="Log out icon" />
 				</Button>
 			</Buttons>
 		</Container>
