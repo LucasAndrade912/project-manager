@@ -1,5 +1,5 @@
-import React, { useContext } from 'react'
-import { useNavigate, Navigate } from 'react-router-dom'
+import React, { useEffect, useContext } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { signInWithPopup } from 'firebase/auth'
 
 import { auth, provider } from '../../firebase'
@@ -32,9 +32,11 @@ const Login = () => {
 		}
 	}
 
-	if (authContext?.isAuth) {
-		return <Navigate to="/app/projects" />
-	}
+	useEffect(() => {
+		if (authContext?.isAuth) {
+			navigate('/app/projects')
+		}
+	}, [authContext])
 
 	return (
 		<Container>
