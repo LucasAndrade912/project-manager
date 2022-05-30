@@ -17,7 +17,7 @@ import { ProjectData } from '../../hooks/useFetchProjects'
 const Project = () => {
 	const project = useLocation().state as ProjectData
 
-	const { image, title, status, description, tags, tasks } = project
+	const { id, image, title, status, description, tags, tasks } = project
 
 	return (
 		<>
@@ -55,7 +55,13 @@ const Project = () => {
 				<Tasks>
 					{
 						tasks?.map(task => (
-							<Task key={task.id} task={task.task_name} finished={task.finished} />
+							<Task
+								key={task.id}
+								idProject={id}
+								idTask={task.id}
+								task={task.task_name}
+								finished={task.finished}
+							/>
 						))
 					}
 				</Tasks>
