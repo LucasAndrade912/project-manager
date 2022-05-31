@@ -28,13 +28,13 @@ const routes = () => {
 			<AuthContext.Provider value={{ isAuth, setIsAuth }}>
 				<DndProvider backend={HTML5Backend}>
 					<Routes>
-						<Route path="/" element={<Login />} />
-						<Route path="app" element={<App />}>
+						<Route path="/" element={<App />}>
 							<Route path="projects" element={<Projects />} />
-							<Route path="project" element={<Outlet />}>
-								<Route path=":projectId" element={<Project />} />
+							<Route path="projects" element={<Outlet />}>
+								<Route path=":title" element={<Project />} />
 							</Route>
 						</Route>
+						<Route path="login" element={<Login />} />
 					</Routes>
 				</DndProvider>
 			</AuthContext.Provider>

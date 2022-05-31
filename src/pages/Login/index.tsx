@@ -26,7 +26,7 @@ const Login = () => {
 		try {
 			await signInWithPopup(auth, provider)
 
-			navigate('/app/projects')
+			navigate('/projects')
 		} catch (err) {
 			console.log(err)
 		}
@@ -34,7 +34,7 @@ const Login = () => {
 
 	useEffect(() => {
 		if (authContext?.isAuth) {
-			navigate('/app/projects')
+			navigate('/projects')
 		}
 	}, [authContext])
 

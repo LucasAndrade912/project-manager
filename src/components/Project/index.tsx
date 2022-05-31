@@ -33,6 +33,8 @@ const Project = ({ id, title, description, status, image, tags, tasks }: Project
 		item: { id, title, description, status, image, tags, tasks }
 	})
 
+	const slug = title.toLowerCase().replaceAll(' ', '-')
+
 	return (
 		<Container ref={dragRef}>
 			{ image && (
@@ -41,7 +43,7 @@ const Project = ({ id, title, description, status, image, tags, tasks }: Project
 
 			<ProjectTitle
 				onClick={() => {
-					navigate(`/app/project/${id}`, { state: { id, title, description, status, image, tags, tasks } })
+					navigate(`/projects/${slug}`, { state: { id, title, description, status, image, tags, tasks } })
 				}}
 			>
 				{ title }

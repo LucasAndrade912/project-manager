@@ -44,7 +44,7 @@ const App = () => {
 
 	useEffect(() => {
 		if (pathname === '/') {
-			navigate('/app/projects')
+			navigate('projects')
 		}
 	}, [])
 

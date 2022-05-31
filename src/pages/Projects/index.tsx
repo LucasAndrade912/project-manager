@@ -53,7 +53,7 @@ const Projects = () => {
 
 	useEffect(() => {
 		if (!authContext?.isAuth) {
-			navigate('/')
+			navigate('/login')
 		}
 	}, [authContext])
 

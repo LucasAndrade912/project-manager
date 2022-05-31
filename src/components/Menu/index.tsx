@@ -22,12 +22,12 @@ const Menu = ({ openModal }: MenuProps) => {
 
 	async function logOut() {
 		await signOut(auth)
-		navigate('/')
+		navigate('/login')
 	}
 
 	return (
 		<Container>
-			<Link to="/app/projects">
+			<Link to="projects">
 				<Logo src={LogoIcon} alt="Project Manager Icon" />
 			</Link>
 
