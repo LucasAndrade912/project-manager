@@ -1,9 +1,10 @@
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useEffect, useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import { ProjectsGroup } from '../../components'
+import { AppContext } from '../../components/App'
 import { auth } from '../../firebase'
-import { ProjectData, useFetchProjects } from '../../hooks/useFetchProjects'
+import { ProjectData } from '../../hooks/useFetchProjects'
 import { api } from '../../lib/api'
 import { AuthContext } from '../../routes'
 
@@ -20,14 +21,9 @@ export interface ProjectsTypes {
 }
 
 const Projects = () => {
-	const [projects, setProjects] = useState<ProjectsTypes>()
 	const navigate = useNavigate()
-	const myProjects = useFetchProjects('/projects')
 	const authContext = useContext(AuthContext)
-
-	const mapProjectsByStatus = (status: 'to-do' | 'in-progress' | 'done') => {
-		return myProjects?.filter(project => project.status === status && project)
-	}
+	const { projects, setProjects } = useContext(AppContext)!
 
 	const updateProject = async (data: ProjectData, boardStatus: 'to-do' | 'in-progress' | 'done') => {
 		const updatedProject = {...data}
@@ -54,14 +50,6 @@ const Projects = () => {
 			headers: { 'Authorization': `Bearer ${tokenId}` }
 		})
 	}
-
-	useEffect(() => {
-		setProjects({
-			'to-do': mapProjectsByStatus('to-do'),
-			'in-progress': mapProjectsByStatus('in-progress'),
-			'done': mapProjectsByStatus('done')
-		})
-	}, [myProjects])
 
 	useEffect(() => {
 		if (!authContext?.isAuth) {

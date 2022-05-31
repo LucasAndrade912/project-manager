@@ -4,7 +4,8 @@ import { DndProvider } from 'react-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
 
 import { auth } from './firebase'
-import { App, Login, Project, Projects } from './pages'
+import { App } from './components'
+import { Login, Project, Projects } from './pages'
 
 interface AuthContextProps {
 	isAuth: boolean | null
