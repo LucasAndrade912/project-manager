@@ -2,6 +2,7 @@ import React from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { signOut } from 'firebase/auth'
 
+import { auth } from '../../firebase'
 import { LogoIcon, NewProjectIcon, FilterIcon, LogoutIcon } from '../../assets'
 
 import {
@@ -11,9 +12,12 @@ import {
 	Button,
 	ButtonIcon
 } from './styles'
-import { auth } from '../../firebase'
 
-const Menu = () => {
+interface MenuProps {
+	openModal: () => void
+}
+
+const Menu = ({ openModal }: MenuProps) => {
 	const navigate = useNavigate()
 
 	async function logOut() {
@@ -28,7 +32,7 @@ const Menu = () => {
 			</Link>
 
 			<Buttons>
-				<Button>
+				<Button onClick={openModal}>
 					<ButtonIcon src={NewProjectIcon} alt="New project icon" />
 				</Button>
 
