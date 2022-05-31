@@ -30,13 +30,13 @@ export const Button = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #1A51AB;
+  background-color: #226CDF;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.25);
   margin-bottom: 3.75rem;
-  transition: 0.1s;
+  transition: 0.2s;
   
-  :hover {
-    background-color: #1E5BBE;
+  &:hover {
+    background-color: #1A51AB;
   }
 `
 
