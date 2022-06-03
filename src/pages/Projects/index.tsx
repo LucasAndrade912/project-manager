@@ -14,11 +14,6 @@ import {
 	AllProjects
 } from './styles'
 
-export interface ProjectsTypes {
-	'to-do': ProjectData[] | undefined
-	'in-progress': ProjectData[] | undefined
-	'done': ProjectData[] | undefined
-}
 
 const Projects = () => {
 	const navigate = useNavigate()

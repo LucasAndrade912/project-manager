@@ -3,10 +3,15 @@ import { createPortal } from 'react-dom'
 import { Outlet, useLocation, useNavigate } from 'react-router-dom'
 
 import { Menu, Modal, Form } from '..'
-import { ProjectsTypes } from '../../pages/Projects'
-import { useFetchProjects } from '../../hooks/useFetchProjects'
+import { ProjectData, useFetchProjects } from '../../hooks/useFetchProjects'
 
 import { Container } from './styles'
+
+export interface ProjectsTypes {
+	'to-do': ProjectData[] | undefined
+	'in-progress': ProjectData[] | undefined
+	'done': ProjectData[] | undefined
+}
 
 interface AppContextProps {
 	projects: ProjectsTypes | undefined
