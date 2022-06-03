@@ -1,5 +1,8 @@
 import styled from 'styled-components'
-import { IStatus } from '../../types'
+
+type Status = {
+  status: 'to-do' | 'in-progress' | 'done'
+}
 
 export const Container = styled.div`
   display: flex;
@@ -10,7 +13,7 @@ export const StatusColor = styled.div`
   width: 1.25rem;
   height: 1.25rem;
   border-radius: 50%;
-  background-color: ${({ status }: IStatus) => {
+  background-color: ${({ status }: Status) => {
 		if (status === 'to-do') {
 			return '#FF1313'
 		} else if (status === 'in-progress') {

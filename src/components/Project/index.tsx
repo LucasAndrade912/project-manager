@@ -16,7 +16,7 @@ interface TaskProps {
 	finished: boolean
 }
 
-interface ProjectProps {
+export interface ProjectProps {
 	id: string
 	title: string
 	description: string
@@ -57,8 +57,8 @@ const Project = ({ id, title, description, status, image, tags, tasks }: Project
 				tags.map(tag => (
 					<Tag
 						key={tag.tag_name}
-						name={tag.tag_name}
-						color={tag.color.color_name}
+						tag_name={tag.tag_name}
+						color={tag.color}
 					/>
 				))
 			) }

@@ -1,9 +1,12 @@
 import React from 'react'
 
-import { IStatus } from '../../types'
 import { Container, StatusColor, StatusTitle } from './styles'
 
-const Status = ({ status }: IStatus) => {
+interface StatusProps {
+  status: 'to-do' | 'in-progress' | 'done'
+}
+
+const Status = ({ status }: StatusProps) => {
 	function formatStatus(status: string) {
 		const firstLetterUpperCase = status[0].toUpperCase()
 		const restOfTheFormattedString = status.slice(1).replace('-', ' ')

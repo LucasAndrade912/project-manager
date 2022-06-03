@@ -1,12 +1,18 @@
 import React from 'react'
 
-import { ITag } from '../../types'
 import { Container } from './styles'
 
-const Tag = ({ name, color }: ITag) => {
+export interface TagProps {
+	tag_name: string
+	color: {
+		color_name: string
+	}
+}
+
+const Tag = ({ tag_name, color }: TagProps) => {
 	return (
-		<Container color={color}>
-			{ name }
+		<Container color={color.color_name}>
+			{ tag_name }
 		</Container>
 	)
 }

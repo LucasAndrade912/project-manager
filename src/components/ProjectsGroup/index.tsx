@@ -2,17 +2,17 @@ import React from 'react'
 import { useDrop } from 'react-dnd'
 
 import { Project, Status } from '..'
-import { ProjectData } from '../../hooks/useFetchProjects'
+import { ProjectProps } from '../Project'
 import { Container } from './styles'
 
 interface ProjectsGroupProps {
   status: 'to-do' | 'in-progress' | 'done'
-  data: ProjectData[] | undefined
-	updateData: (data: ProjectData, boardStatus: 'to-do' | 'in-progress' | 'done') => void
+  data: ProjectProps[] | undefined
+	updateData: (data: ProjectProps, boardStatus: 'to-do' | 'in-progress' | 'done') => void
 }
 
 const ProjectsGroup = ({ status, data, updateData }: ProjectsGroupProps) => {
-	const [, dropRef] = useDrop<ProjectData>({
+	const [, dropRef] = useDrop<ProjectProps>({
 		accept: 'project',
 		drop: item => {
 			updateData(item, status)

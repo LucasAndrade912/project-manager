@@ -1,7 +1,5 @@
 import styled from 'styled-components'
 
-import { ITag } from '../../types'
-
 export const Container = styled.div`
   display: inline-block;
   margin-top: 1rem;
@@ -9,7 +7,7 @@ export const Container = styled.div`
   padding: 0.5rem;
   border-radius: 3px;
   font-size: 0.875rem;
-  background-color: ${({ color }: ITag) => {
-		return color
+  background-color: ${(props: { color: string }) => {
+		return props.color
 	}}
 `

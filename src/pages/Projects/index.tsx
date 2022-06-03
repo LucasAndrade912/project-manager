@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { ProjectsGroup } from '../../components'
 import { AppContext } from '../../components/App'
 import { auth } from '../../firebase'
-import { ProjectData } from '../../hooks/useFetchProjects'
+import { ProjectProps } from '../../components/Project'
 import { api } from '../../lib/api'
 import { AuthContext } from '../../routes'
 
@@ -20,7 +20,7 @@ const Projects = () => {
 	const authContext = useContext(AuthContext)
 	const { projects, setProjects } = useContext(AppContext)!
 
-	const updateProject = async (data: ProjectData, boardStatus: 'to-do' | 'in-progress' | 'done') => {
+	const updateProject = async (data: ProjectProps, boardStatus: 'to-do' | 'in-progress' | 'done') => {
 		const updatedProject = {...data}
 		updatedProject.status = boardStatus
 

@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom'
 
 import { Status, Tag, Task } from '../../components'
 import { Main } from '../Projects/styles'
+import { ProjectProps } from '../../components/Project'
 
 import {
 	ProjectTitle,
@@ -12,10 +13,9 @@ import {
 	AddTaskButton,
 	Tasks
 } from './styles'
-import { ProjectData } from '../../hooks/useFetchProjects'
 
 const Project = () => {
-	const project = useLocation().state as ProjectData
+	const project = useLocation().state as ProjectProps
 
 	const { id, image, title, status, description, tags, tasks } = project
 
@@ -38,8 +38,8 @@ const Project = () => {
 					tags?.map(tag => (
 						<Tag
 							key={tag.tag_name}
-							name={tag.tag_name}
-							color={tag.color.color_name}
+							tag_name={tag.tag_name}
+							color={tag.color}
 						/>
 					))
 				}
