@@ -3,27 +3,37 @@ import { createPortal } from 'react-dom'
 import { Outlet, useLocation, useNavigate } from 'react-router-dom'
 
 import { Menu, Modal, Form } from '..'
-import { ProjectData, useFetchProjects } from '../../hooks/useFetchProjects'
+import { ProjectProps } from '../Project'
+import { TagProps } from '../Tag'
+import { useFetch } from '../../hooks/useFetch'
 
 import { Container } from './styles'
 
-export interface ProjectsTypes {
-	'to-do': ProjectData[] | undefined
-	'in-progress': ProjectData[] | undefined
-	'done': ProjectData[] | undefined
+export interface ProjectState {
+	'to-do': ProjectProps[] | undefined
+	'in-progress': ProjectProps[] | undefined
+	'done': ProjectProps[] | undefined
 }
 
 interface AppContextProps {
-	projects: ProjectsTypes | undefined
-	setProjects: React.Dispatch<React.SetStateAction<ProjectsTypes | undefined>>
+	projects: ProjectState | undefined
+	setProjects: React.Dispatch<React.SetStateAction<ProjectState | undefined>>
+	tags: TagProps[] | undefined
 }
+
+type ProjectFetch = { projects: ProjectProps[] }
+type TagFetch = { tags: TagProps[] }
 
 export const AppContext = createContext<AppContextProps | null>(null)
 
 const App = () => {
-	const [projects, setProjects] = useState<ProjectsTypes>()
+	const [projects, setProjects] = useState<ProjectState>()
+	const [tags, setTags] = useState<TagProps[]>()
 	const [isModalOpened, setIsModalOpened] = useState(false)
-	const myProjects = useFetchProjects('/projects')
+
+	const myProjects = useFetch<ProjectFetch>('/projects')?.projects
+	const myTags = useFetch<TagFetch>('/tags')?.tags
+
 	const { pathname } = useLocation()
 	const navigate = useNavigate()
 
@@ -45,7 +55,9 @@ const App = () => {
 			'in-progress': mapProjectsByStatus('in-progress'),
 			'done': mapProjectsByStatus('done')
 		})
-	}, [myProjects])
+
+		setTags(myTags)
+	}, [myProjects, myTags])
 
 	useEffect(() => {
 		if (pathname === '/') {
@@ -57,7 +69,7 @@ const App = () => {
 		<Container>
 			<Menu openModal={openModal} />
 
-			<AppContext.Provider value={{ projects, setProjects }}>
+			<AppContext.Provider value={{ projects, setProjects, tags }}>
 				<Outlet/>
 			</AppContext.Provider>
 
