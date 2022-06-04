@@ -48,6 +48,38 @@ export const TextArea = styled.textarea`
   margin-top: 0.5rem;
 `
 
+export const Tags = styled.div`
+  max-width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+`
+
+interface TagProps {
+  color: string
+  selected: boolean
+}
+
+export const Tag = styled.div`
+  display: inline-block;
+  margin-top: 1rem;
+  margin-right: 0.75rem;
+  padding: 0.5rem;
+  border-radius: 3px;
+  font-size: 0.875rem;
+  background-color: ${(props: TagProps) => {
+		return props.color
+	}};
+  outline: ${(props: TagProps) => {
+		if (props.selected) {
+			return '3px solid #1A51AB'
+		}
+	}};
+
+  &:hover {
+    cursor: pointer;
+  }
+`
+
 export const Submit = styled.button`
   width: 100%;
   margin-top: 2rem;

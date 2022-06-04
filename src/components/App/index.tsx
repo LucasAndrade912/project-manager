@@ -75,7 +75,7 @@ const App = () => {
 
 			{ isModalOpened && createPortal(
 				<Modal>
-					<Form closeModal={closeModal} />
+					<Form tags={tags} closeModal={closeModal} />
 				</Modal>,
 				document.querySelector('#modal')!
 			) }

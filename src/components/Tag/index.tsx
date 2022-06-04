@@ -3,6 +3,7 @@ import React from 'react'
 import { Container } from './styles'
 
 export interface TagProps {
+	id?: number
 	tag_name: string
 	color: {
 		color_name: string

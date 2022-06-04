@@ -3,12 +3,7 @@ import { useDrag } from 'react-dnd'
 import { useNavigate } from 'react-router-dom'
 
 import { Container, Image, ProjectTitle, ProjectDescription } from './styles'
-import Tag from '../Tag'
-
-interface TagProps {
-	tag_name: string
-	color: { color_name: string }
-}
+import Tag, { TagProps } from '../Tag'
 
 interface TaskProps {
 	id: number
