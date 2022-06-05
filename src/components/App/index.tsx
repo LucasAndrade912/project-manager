@@ -71,14 +71,14 @@ const App = () => {
 
 			<AppContext.Provider value={{ projects, setProjects, tags }}>
 				<Outlet/>
-			</AppContext.Provider>
-
-			{ isModalOpened && createPortal(
-				<Modal>
-					<Form tags={tags} closeModal={closeModal} />
-				</Modal>,
+			
+				{ isModalOpened && createPortal(
+					<Modal>
+						<Form closeModal={closeModal} />
+					</Modal>,
 				document.querySelector('#modal')!
-			) }
+				) }
+			</AppContext.Provider>
 		</Container>
 	)
 }

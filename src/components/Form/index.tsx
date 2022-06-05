@@ -1,6 +1,9 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
+import { useForm } from 'react-hook-form'
 
 import { CloseIcon } from '../../assets'
+import { usePost } from '../../hooks/usePost'
+import { AppContext } from '../App'
 import { TagProps } from '../Tag'
 
 import {
@@ -13,16 +16,24 @@ import {
 	TextArea,
 	Tags,
 	Tag,
-	Submit
+	Submit,
+	ErrorMessage
 } from './styles'
 
 interface FormProps {
-	tags: TagProps[] | undefined
 	closeModal: () => void
 }
 
-const Form = ({ tags, closeModal }: FormProps) => {
+interface FormData {
+	title: string
+	description: string
+}
+
+const Form = ({ closeModal }: FormProps) => {
 	const [selectedTags, setSelectedTags] = useState<number[]>([])
+	const { projects, setProjects, tags } = useContext(AppContext)!
+	const { register, handleSubmit, formState: { errors } } = useForm<FormData>()
+	const dispatch = usePost()
 
 	const selectTag = (id: number) => {
 		if (!selectedTags.includes(id)) {
@@ -33,8 +44,33 @@ const Form = ({ tags, closeModal }: FormProps) => {
 		}
 	}
 
+	const onFormSubmit = async (data: FormData) => {
+		const body = { ...data, idTags: selectedTags }
+		
+		try {
+			const id = await dispatch('/projects', body)
+			
+			if (projects) {
+				const copyProjects = { ...projects }
+	
+				copyProjects['to-do']?.unshift({
+					id,
+					title: data.title,
+					description: data.description,
+					status: 'to-do',
+					tags: tags?.filter(tag => selectedTags.includes(tag.id!))
+				})
+
+				setProjects(copyProjects)
+				closeModal()
+			}
+		} catch (err) {
+			console.log(err)
+		}
+	}
+
 	return (
-		<form>
+		<form onSubmit={handleSubmit(onFormSubmit)}>
 			<Header>
 				<Title>Crie seu Projeto</Title>
 
@@ -43,12 +79,22 @@ const Form = ({ tags, closeModal }: FormProps) => {
 			
 			<Section>
 				<Label htmlFor="title">Título</Label>
-				<Input id="title" placeholder="Título do projeto..." />
+				<Input
+					id="title"
+					placeholder="Título do projeto..."
+					{ ...register('title', { required: 'Title is required' }) }
+				/>
+				{ errors.title && <ErrorMessage>{ errors.title.message }</ErrorMessage> }
 			</Section>
 
 			<Section>
 				<Label htmlFor="description">Descrição</Label>
-				<TextArea id="description" placeholder="Descrição do projeto..." />
+				<TextArea
+					id="description"
+					placeholder="Descrição do projeto..."
+					{ ...register('description', { required: 'Description is required' }) }
+				/>
+				{ errors.description && <ErrorMessage>{ errors.description.message }</ErrorMessage> }
 			</Section>
 
 			<Section>
@@ -69,7 +115,7 @@ const Form = ({ tags, closeModal }: FormProps) => {
 				</Tags>
 			</Section>
 
-			<Submit>
+			<Submit type="submit">
 				Criar Projeto
 			</Submit>
 		</form>
