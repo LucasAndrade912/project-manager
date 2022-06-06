@@ -2,7 +2,7 @@ import React, { useState, useEffect, createContext } from 'react'
 import { createPortal } from 'react-dom'
 import { Outlet, useLocation, useNavigate } from 'react-router-dom'
 
-import { Menu, Modal, Form } from '..'
+import { Menu, Modal, ProjectForm } from '..'
 import { ProjectProps } from '../Project'
 import { TagProps } from '../Tag'
 import { useFetch } from '../../hooks/useFetch'
@@ -21,6 +21,8 @@ interface AppContextProps {
 	tags: TagProps[] | undefined
 }
 
+export type ModalType = 'project' | 'task'
+
 type ProjectFetch = { projects: ProjectProps[] }
 type TagFetch = { tags: TagProps[] }
 
@@ -29,6 +31,7 @@ export const AppContext = createContext<AppContextProps | null>(null)
 const App = () => {
 	const [projects, setProjects] = useState<ProjectState>()
 	const [tags, setTags] = useState<TagProps[]>()
+	const [modalType, setModalType] = useState<ModalType>()
 	const [isModalOpened, setIsModalOpened] = useState(false)
 
 	const myProjects = useFetch<ProjectFetch>('/projects')?.projects
@@ -37,7 +40,8 @@ const App = () => {
 	const { pathname } = useLocation()
 	const navigate = useNavigate()
 
-	const openModal = () => {
+	const openModal = (type: ModalType) => {
+		setModalType(type)
 		setIsModalOpened(true)
 	}
 
@@ -74,7 +78,7 @@ const App = () => {
 			
 				{ isModalOpened && createPortal(
 					<Modal>
-						<Form closeModal={closeModal} />
+						{ modalType === 'project' ? <ProjectForm closeModal={closeModal} /> : <p>Hello World</p> }
 					</Modal>,
 				document.querySelector('#modal')!
 				) }

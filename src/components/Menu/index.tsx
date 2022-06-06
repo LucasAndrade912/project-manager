@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { signOut } from 'firebase/auth'
 
 import { auth } from '../../firebase'
+import { ModalType } from '../App'
 import { LogoIcon, NewProjectIcon, FilterIcon, LogoutIcon } from '../../assets'
 
 import {
@@ -14,7 +15,7 @@ import {
 } from './styles'
 
 interface MenuProps {
-	openModal: () => void
+	openModal: (type: ModalType) => void
 }
 
 const Menu = ({ openModal }: MenuProps) => {
@@ -32,7 +33,7 @@ const Menu = ({ openModal }: MenuProps) => {
 			</Link>
 
 			<Buttons>
-				<Button onClick={openModal}>
+				<Button onClick={() => openModal('task')}>
 					<ButtonIcon src={NewProjectIcon} alt="New project icon" />
 				</Button>
 
