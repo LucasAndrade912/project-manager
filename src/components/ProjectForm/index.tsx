@@ -29,7 +29,7 @@ interface FormData {
 	description: string
 }
 
-const Form = ({ closeModal }: FormProps) => {
+const ProjectForm = ({ closeModal }: FormProps) => {
 	const [selectedTags, setSelectedTags] = useState<number[]>([])
 	const { projects, setProjects, tags } = useContext(AppContext)!
 	const { register, handleSubmit, formState: { errors } } = useForm<FormData>()
@@ -122,4 +122,4 @@ const Form = ({ closeModal }: FormProps) => {
 	)
 }
 
-export default Form
+export default ProjectForm
