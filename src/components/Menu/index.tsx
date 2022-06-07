@@ -33,7 +33,7 @@ const Menu = ({ openModal }: MenuProps) => {
 			</Link>
 
 			<Buttons>
-				<Button onClick={() => openModal('task')}>
+				<Button onClick={() => openModal('project')}>
 					<ButtonIcon src={NewProjectIcon} alt="New project icon" />
 				</Button>
 

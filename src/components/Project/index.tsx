@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { useDrag } from 'react-dnd'
 import { useNavigate } from 'react-router-dom'
 
 import { Container, Image, ProjectTitle, ProjectDescription } from './styles'
 import Tag, { TagProps } from '../Tag'
+import { AppContext } from '../App'
 
 interface TaskProps {
 	id: number
@@ -22,6 +23,7 @@ export interface ProjectProps {
 }
 
 const Project = ({ id, title, description, status, image, tags, tasks }: ProjectProps) => {
+	const { setIdProjectSelected } = useContext(AppContext)!
 	const navigate = useNavigate()
 	const [, dragRef] = useDrag({
 		type: 'project',
@@ -38,7 +40,8 @@ const Project = ({ id, title, description, status, image, tags, tasks }: Project
 
 			<ProjectTitle
 				onClick={() => {
-					navigate(`/projects/${slug}`, { state: { id, title, description, status, image, tags, tasks } })
+					navigate(`/projects/${slug}`)
+					setIdProjectSelected(id)
 				}}
 			>
 				{ title }

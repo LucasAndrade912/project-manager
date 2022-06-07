@@ -2,7 +2,7 @@ import React, { useState, useEffect, createContext } from 'react'
 import { createPortal } from 'react-dom'
 import { Outlet, useLocation, useNavigate } from 'react-router-dom'
 
-import { Menu, Modal, ProjectForm } from '..'
+import { Menu, Modal, ProjectForm, TaskForm } from '..'
 import { ProjectProps } from '../Project'
 import { TagProps } from '../Tag'
 import { useFetch } from '../../hooks/useFetch'
@@ -19,6 +19,9 @@ interface AppContextProps {
 	projects: ProjectState | undefined
 	setProjects: React.Dispatch<React.SetStateAction<ProjectState | undefined>>
 	tags: TagProps[] | undefined
+	idProjectSelected: string
+	setIdProjectSelected: React.Dispatch<React.SetStateAction<string>>
+	openModal: (type: ModalType, idProject?: string) => void
 }
 
 export type ModalType = 'project' | 'task'
@@ -31,6 +34,7 @@ export const AppContext = createContext<AppContextProps | null>(null)
 const App = () => {
 	const [projects, setProjects] = useState<ProjectState>()
 	const [tags, setTags] = useState<TagProps[]>()
+	const [idProjectSelected, setIdProjectSelected] = useState('')
 	const [modalType, setModalType] = useState<ModalType>()
 	const [isModalOpened, setIsModalOpened] = useState(false)
 
@@ -40,9 +44,13 @@ const App = () => {
 	const { pathname } = useLocation()
 	const navigate = useNavigate()
 
-	const openModal = (type: ModalType) => {
+	const openModal = (type: ModalType, idProject?: string) => {
 		setModalType(type)
 		setIsModalOpened(true)
+		
+		if (idProject) {
+			setIdProjectSelected(idProject)
+		}
 	}
 
 	const closeModal = () => {
@@ -73,14 +81,18 @@ const App = () => {
 		<Container>
 			<Menu openModal={openModal} />
 
-			<AppContext.Provider value={{ projects, setProjects, tags }}>
+			<AppContext.Provider value={{ projects, setProjects, tags, idProjectSelected, setIdProjectSelected, openModal }}>
 				<Outlet/>
 			
 				{ isModalOpened && createPortal(
 					<Modal>
-						{ modalType === 'project' ? <ProjectForm closeModal={closeModal} /> : <p>Hello World</p> }
+						{
+							modalType === 'project'
+								? <ProjectForm closeModal={closeModal} />
+								: <TaskForm closeModal={closeModal} />
+						}
 					</Modal>,
-				document.querySelector('#modal')!
+					document.querySelector('#modal')!
 				) }
 			</AppContext.Provider>
 		</Container>
