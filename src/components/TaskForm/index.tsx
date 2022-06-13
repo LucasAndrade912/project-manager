@@ -30,11 +30,19 @@ const TaskForm = ({ closeModal }: TaskFormProps) => {
 			projectKeys.forEach(key => {
 				copyProjects[key]?.forEach(project => {
 					if (project.id === idProjectSelected) {
-						project.tasks?.push({
-							id,
-							task_name: data.task,
-							finished: false
-						})
+						if (project.tasks) {
+							project.tasks.push({
+								id,
+								task_name: data.task,
+								finished: false
+							})
+						} else {
+							project.tasks = [{
+								id,
+								task_name: data.task,
+								finished: false
+							}]
+						}
 					}
 				})
 			})
