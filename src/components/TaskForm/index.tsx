@@ -15,10 +15,10 @@ interface TaskFormProps {
 const TaskForm = ({ closeModal }: TaskFormProps) => {
 	const { register, handleSubmit, formState: { errors } } = useForm<{ task: string }>()
 	const { projects, setProjects, idProjectSelected } = useContext(AppContext)!
-	const dispatch = usePost()
+	const request = usePost()
 
 	const onFormSubmit = async (data: { task: string }) => {
-		const id = await dispatch('/tasks', {
+		const id = await request('/tasks', {
 			idProject: idProjectSelected,
 			taskName: data.task
 		})

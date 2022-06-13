@@ -33,7 +33,7 @@ const ProjectForm = ({ closeModal }: FormProps) => {
 	const [selectedTags, setSelectedTags] = useState<number[]>([])
 	const { projects, setProjects, tags } = useContext(AppContext)!
 	const { register, handleSubmit, formState: { errors } } = useForm<FormData>()
-	const dispatch = usePost()
+	const request = usePost()
 
 	const selectTag = (id: number) => {
 		if (!selectedTags.includes(id)) {
@@ -48,7 +48,7 @@ const ProjectForm = ({ closeModal }: FormProps) => {
 		const body = { ...data, idTags: selectedTags }
 		
 		try {
-			const id = await dispatch('/projects', body)
+			const id = await request('/projects', body)
 			
 			if (projects) {
 				const copyProjects = { ...projects }

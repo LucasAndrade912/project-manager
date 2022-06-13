@@ -20,7 +20,7 @@ const TagForm = ({ closeModal }: TagFormProps) => {
 	const [tagText, setTagText] = useState('')
 	const [colorSelected, setColorSelected] = useState<Color>()
 	const { setTags, colors } = useContext(AppContext)!
-	const dispatch = usePost()
+	const request = usePost()
 
 	const selectColor = (id: number, color: string) => {
 		setColorSelected({ id, color_name: color })
@@ -33,7 +33,7 @@ const TagForm = ({ closeModal }: TagFormProps) => {
 	const createTag = async (event: FormEvent) => {
 		event.preventDefault()
 
-		const idTag: number | undefined = await dispatch('/tags', {
+		const idTag: number | undefined = await request('/tags', {
 			tagName: tagText,
 			idColor: colorSelected?.id
 		})
