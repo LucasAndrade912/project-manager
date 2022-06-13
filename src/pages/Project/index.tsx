@@ -25,7 +25,6 @@ const Project = () => {
 			projectKeys.forEach(key => {
 				projects![key]?.forEach(project => {
 					if (project.id === idProjectSelected) {
-						console.log(project)
 						setProjectSelected(project)
 					}
 				})
