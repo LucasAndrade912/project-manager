@@ -3,7 +3,7 @@ import React from 'react'
 import { Overlay, Content } from './styles'
 
 interface ModalProps {
-  children: JSX.Element
+  children: JSX.Element | null
 }
 
 const Modal = ({ children }: ModalProps) => {

@@ -37,7 +37,7 @@ const Menu = ({ openModal }: MenuProps) => {
 					<ButtonIcon src={NewProjectIcon} alt="New project icon" />
 				</Button>
 
-				<Button>
+				<Button onClick={() => openModal('tag')}>
 					<ButtonIcon src={FilterIcon} alt="Filter icon" />
 				</Button>
 

@@ -1,8 +1,9 @@
+/* eslint-disable indent */
 import React, { useState, useEffect, createContext } from 'react'
 import { createPortal } from 'react-dom'
 import { Outlet, useLocation, useNavigate } from 'react-router-dom'
 
-import { Menu, Modal, ProjectForm, TaskForm } from '..'
+import { Menu, Modal, ProjectForm, TaskForm, TagForm } from '..'
 import { ProjectProps } from '../Project'
 import { TagProps } from '../Tag'
 import { useFetch } from '../../hooks/useFetch'
@@ -19,27 +20,39 @@ interface AppContextProps {
 	projects: ProjectState | undefined
 	setProjects: React.Dispatch<React.SetStateAction<ProjectState | undefined>>
 	tags: TagProps[] | undefined
+	setTags: React.Dispatch<React.SetStateAction<TagProps[] | undefined>>
+	colors: Color[] | undefined
 	idProjectSelected: string
 	setIdProjectSelected: React.Dispatch<React.SetStateAction<string>>
 	openModal: (type: ModalType, idProject?: string) => void
 }
 
-export type ModalType = 'project' | 'task'
+export type ModalType = 'project' | 'task' | 'tag'
+
+interface Color {
+	id: number
+	color_name: string
+}
 
 type ProjectFetch = { projects: ProjectProps[] }
 type TagFetch = { tags: TagProps[] }
+type ColorFetch = {
+	colors: Color[]
+}
 
 export const AppContext = createContext<AppContextProps | null>(null)
 
 const App = () => {
 	const [projects, setProjects] = useState<ProjectState>()
 	const [tags, setTags] = useState<TagProps[]>()
+	const [colors, setColors] = useState<Color[]>()
 	const [idProjectSelected, setIdProjectSelected] = useState('')
 	const [modalType, setModalType] = useState<ModalType>()
 	const [isModalOpened, setIsModalOpened] = useState(false)
 
 	const myProjects = useFetch<ProjectFetch>('/projects')?.projects
 	const myTags = useFetch<TagFetch>('/tags')?.tags
+	const myColors = useFetch<ColorFetch>('/colors')?.colors
 
 	const { pathname } = useLocation()
 	const navigate = useNavigate()
@@ -69,7 +82,8 @@ const App = () => {
 		})
 
 		setTags(myTags)
-	}, [myProjects, myTags])
+		setColors(myColors)
+	}, [myProjects, myTags, myColors])
 
 	useEffect(() => {
 		if (pathname === '/') {
@@ -81,15 +95,15 @@ const App = () => {
 		<Container>
 			<Menu openModal={openModal} />
 
-			<AppContext.Provider value={{ projects, setProjects, tags, idProjectSelected, setIdProjectSelected, openModal }}>
+			<AppContext.Provider value={{ projects, setProjects, tags, setTags, colors, idProjectSelected, setIdProjectSelected, openModal }}>
 				<Outlet/>
 			
 				{ isModalOpened && createPortal(
 					<Modal>
 						{
-							modalType === 'project'
-								? <ProjectForm closeModal={closeModal} />
-								: <TaskForm closeModal={closeModal} />
+							modalType === 'project' ? <ProjectForm closeModal={closeModal} /> :
+							modalType === 'task' ? <TaskForm closeModal={closeModal} /> :
+							modalType === 'tag' ? <TagForm closeModal={closeModal} /> : null
 						}
 					</Modal>,
 					document.querySelector('#modal')!
