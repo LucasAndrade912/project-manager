@@ -1,5 +1,5 @@
 /* eslint-disable indent */
-import React, { useState, useEffect, createContext } from 'react'
+import React, { useState, useEffect, createContext, useReducer } from 'react'
 import { createPortal } from 'react-dom'
 import { Outlet, useLocation, useNavigate } from 'react-router-dom'
 
@@ -7,6 +7,7 @@ import { Menu, Modal, ProjectForm, TaskForm, TagForm } from '..'
 import { ProjectProps } from '../Project'
 import { TagProps } from '../Tag'
 import { useFetch } from '../../hooks/useFetch'
+import { projectReducer } from './projectState'
 
 import { Container } from './styles'
 
@@ -43,6 +44,11 @@ type ColorFetch = {
 export const AppContext = createContext<AppContextProps | null>(null)
 
 const App = () => {
+	const [state, dispatch] = useReducer(projectReducer, {
+		toDo: undefined,
+		inProgress: undefined,
+		done: undefined
+	})
 	const [projects, setProjects] = useState<ProjectState>()
 	const [tags, setTags] = useState<TagProps[]>()
 	const [colors, setColors] = useState<Color[]>()
@@ -83,6 +89,8 @@ const App = () => {
 
 		setTags(myTags)
 		setColors(myColors)
+
+		dispatch({ type: 'SET_PROJECTS', payload: myProjects })
 	}, [myProjects, myTags, myColors])
 
 	useEffect(() => {
