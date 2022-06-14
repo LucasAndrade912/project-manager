@@ -31,7 +31,7 @@ interface FormData {
 
 const ProjectForm = ({ closeModal }: FormProps) => {
 	const [selectedTags, setSelectedTags] = useState<number[]>([])
-	const { projects, setProjects, tags } = useContext(AppContext)!
+	const { dispatch, projects, setProjects, tags } = useContext(AppContext)!
 	const { register, handleSubmit, formState: { errors } } = useForm<FormData>()
 	const request = usePost()
 
@@ -62,6 +62,15 @@ const ProjectForm = ({ closeModal }: FormProps) => {
 				})
 
 				setProjects(copyProjects)
+
+				dispatch({ type: 'ADD_PROJECT', payload: {
+					id,
+					title: data.title,
+					description: data.description,
+					status: 'to-do',
+					tags: tags?.filter(tag => selectedTags.includes(tag.id!))
+				} })
+				
 				closeModal()
 			}
 		} catch (err) {

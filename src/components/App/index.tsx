@@ -7,7 +7,7 @@ import { Menu, Modal, ProjectForm, TaskForm, TagForm } from '..'
 import { ProjectProps } from '../Project'
 import { TagProps } from '../Tag'
 import { useFetch } from '../../hooks/useFetch'
-import { projectReducer } from './projectState'
+import { projectReducer, ProjectState_, Action } from './projectState'
 
 import { Container } from './styles'
 
@@ -18,6 +18,8 @@ export interface ProjectState {
 }
 
 interface AppContextProps {
+	state: ProjectState_
+	dispatch: React.Dispatch<Action>
 	projects: ProjectState | undefined
 	setProjects: React.Dispatch<React.SetStateAction<ProjectState | undefined>>
 	tags: TagProps[] | undefined
@@ -103,7 +105,7 @@ const App = () => {
 		<Container>
 			<Menu openModal={openModal} />
 
-			<AppContext.Provider value={{ projects, setProjects, tags, setTags, colors, idProjectSelected, setIdProjectSelected, openModal }}>
+			<AppContext.Provider value={{ state, dispatch, projects, setProjects, tags, setTags, colors, idProjectSelected, setIdProjectSelected, openModal }}>
 				<Outlet/>
 			
 				{ isModalOpened && createPortal(
