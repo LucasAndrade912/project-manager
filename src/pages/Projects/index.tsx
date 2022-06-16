@@ -6,6 +6,7 @@ import { AppContext } from '../../components/App'
 import { auth } from '../../firebase'
 import { ProjectProps } from '../../components/Project'
 import { api } from '../../lib/api'
+import { formatStatus } from '../../utils'
 import { AuthContext } from '../../routes'
 
 import {
@@ -18,7 +19,7 @@ import {
 const Projects = () => {
 	const navigate = useNavigate()
 	const authContext = useContext(AuthContext)
-	const { projects, setProjects } = useContext(AppContext)!
+	const { dispatch, projects, setProjects } = useContext(AppContext)!
 
 	const updateProject = async (data: ProjectProps, boardStatus: 'to-do' | 'in-progress' | 'done') => {
 		const updatedProject = {...data}
@@ -32,6 +33,12 @@ const Projects = () => {
 			copyProjects[boardStatus]?.unshift(updatedProject)
 
 			setProjects(copyProjects)
+
+			dispatch({ type: 'UPDATE_PROJECT_STATUS', payload: {
+				data,
+				from: data.status === 'done' ? 'done' : formatStatus(data.status),
+				to: boardStatus === 'done' ? 'done' : formatStatus(boardStatus)
+			} })
 		}
 
 		const tokenId = await auth.currentUser?.getIdToken()
