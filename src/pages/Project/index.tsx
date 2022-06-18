@@ -19,17 +19,15 @@ const Project = () => {
 	const { projects, idProjectSelected, openModal } = useContext(AppContext)!
 
 	useEffect(() => {
-		if (projects) {
-			const projectKeys = Object.keys(projects!) as Array<'to-do' | 'in-progress' | 'done'>
-		
-			projectKeys.forEach(key => {
-				projects![key]?.forEach(project => {
-					if (project.id === idProjectSelected) {
-						setProjectSelected(project)
-					}
-				})
+		const projectKeys = Object.keys(projects) as Array<'toDo' | 'inProgress' | 'done'>
+
+		projectKeys.forEach(key => {
+			projects[key]?.forEach(project => {
+				if (project.id === idProjectSelected) {
+					setProjectSelected(project)
+				}
 			})
-		}
+		})
 	}, [])
 
 	if (projectSelected) {

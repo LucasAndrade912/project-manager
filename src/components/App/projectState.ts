@@ -2,7 +2,7 @@
 /* eslint-disable indent */
 import { ProjectProps } from '../Project'
 
-export interface ProjectState_ {
+export interface ProjectState {
 	toDo: ProjectProps[] | undefined
 	inProgress: ProjectProps[] | undefined
 	done: ProjectProps[] | undefined

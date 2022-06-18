@@ -7,21 +7,13 @@ import { Menu, Modal, ProjectForm, TaskForm, TagForm } from '..'
 import { ProjectProps } from '../Project'
 import { TagProps } from '../Tag'
 import { useFetch } from '../../hooks/useFetch'
-import { projectReducer, ProjectState_, Action } from './projectState'
+import { projectReducer, ProjectState, Action } from './projectState'
 
 import { Container } from './styles'
 
-export interface ProjectState {
-	'to-do': ProjectProps[] | undefined
-	'in-progress': ProjectProps[] | undefined
-	'done': ProjectProps[] | undefined
-}
-
 interface AppContextProps {
-	state: ProjectState_
+	projects: ProjectState
 	dispatch: React.Dispatch<Action>
-	projects: ProjectState | undefined
-	setProjects: React.Dispatch<React.SetStateAction<ProjectState | undefined>>
 	tags: TagProps[] | undefined
 	setTags: React.Dispatch<React.SetStateAction<TagProps[] | undefined>>
 	colors: Color[] | undefined
@@ -46,12 +38,11 @@ type ColorFetch = {
 export const AppContext = createContext<AppContextProps | null>(null)
 
 const App = () => {
-	const [state, dispatch] = useReducer(projectReducer, {
+	const [projects, dispatch] = useReducer(projectReducer, {
 		toDo: undefined,
 		inProgress: undefined,
 		done: undefined
 	})
-	const [projects, setProjects] = useState<ProjectState>()
 	const [tags, setTags] = useState<TagProps[]>()
 	const [colors, setColors] = useState<Color[]>()
 	const [idProjectSelected, setIdProjectSelected] = useState('')
@@ -78,17 +69,7 @@ const App = () => {
 		setIsModalOpened(false)
 	}
 
-	const mapProjectsByStatus = (status: 'to-do' | 'in-progress' | 'done') => {
-		return myProjects?.filter(project => project.status === status && project)
-	}
-
 	useEffect(() => {
-		setProjects({
-			'to-do': mapProjectsByStatus('to-do'),
-			'in-progress': mapProjectsByStatus('in-progress'),
-			'done': mapProjectsByStatus('done')
-		})
-
 		setTags(myTags)
 		setColors(myColors)
 
@@ -105,7 +86,7 @@ const App = () => {
 		<Container>
 			<Menu openModal={openModal} />
 
-			<AppContext.Provider value={{ state, dispatch, projects, setProjects, tags, setTags, colors, idProjectSelected, setIdProjectSelected, openModal }}>
+			<AppContext.Provider value={{ projects, dispatch, tags, setTags, colors, idProjectSelected, setIdProjectSelected, openModal }}>
 				<Outlet/>
 			
 				{ isModalOpened && createPortal(

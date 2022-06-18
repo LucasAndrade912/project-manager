@@ -31,7 +31,7 @@ interface FormData {
 
 const ProjectForm = ({ closeModal }: FormProps) => {
 	const [selectedTags, setSelectedTags] = useState<number[]>([])
-	const { dispatch, projects, setProjects, tags } = useContext(AppContext)!
+	const { dispatch, tags } = useContext(AppContext)!
 	const { register, handleSubmit, formState: { errors } } = useForm<FormData>()
 	const request = usePost()
 
@@ -50,29 +50,15 @@ const ProjectForm = ({ closeModal }: FormProps) => {
 		try {
 			const id = await request('/projects', body)
 			
-			if (projects) {
-				const copyProjects = { ...projects }
-	
-				copyProjects['to-do']?.unshift({
-					id,
-					title: data.title,
-					description: data.description,
-					status: 'to-do',
-					tags: tags?.filter(tag => selectedTags.includes(tag.id!))
-				})
-
-				setProjects(copyProjects)
-
-				dispatch({ type: 'ADD_PROJECT', payload: {
-					id,
-					title: data.title,
-					description: data.description,
-					status: 'to-do',
-					tags: tags?.filter(tag => selectedTags.includes(tag.id!))
-				} })
-				
-				closeModal()
-			}
+			dispatch({ type: 'ADD_PROJECT', payload: {
+				id,
+				title: data.title,
+				description: data.description,
+				status: 'to-do',
+				tags: tags?.filter(tag => selectedTags.includes(tag.id!))
+			} })
+			
+			closeModal()
 		} catch (err) {
 			console.log(err)
 		}
