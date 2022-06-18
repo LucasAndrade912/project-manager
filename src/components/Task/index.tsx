@@ -5,7 +5,7 @@ import { api } from '../../lib/api'
 
 import { Checkbox, Checkmark, Container, TaskLabel } from './styles'
 
-interface TaskProps {
+export interface TaskProps {
 	idProject: string
 	idTask: number
 	task: string

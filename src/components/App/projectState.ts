@@ -1,6 +1,7 @@
 /* eslint-disable no-mixed-spaces-and-tabs */
 /* eslint-disable indent */
 import { ProjectProps } from '../Project'
+import { TaskProps } from '../Task'
 
 export interface ProjectState {
 	toDo: ProjectProps[] | undefined
@@ -17,36 +18,39 @@ interface UpdateProjectStatusPayload {
 export type Action = 
   { type: 'SET_PROJECTS', payload: ProjectProps[] | undefined } |
   { type: 'ADD_PROJECT', payload: ProjectProps } |
-  { type: 'UPDATE_PROJECT_STATUS', payload: UpdateProjectStatusPayload }
+  { type: 'UPDATE_PROJECT_STATUS', payload: UpdateProjectStatusPayload } |
+  { type: 'ADD_TASK', payload: Omit<TaskProps, 'finished'> }
 
-export const projectReducer = (state: ProjectState_, action: Action) => {
-	switch (action.type) {
+export const projectReducer = (state: ProjectState, action: Action) => {
+  const { type, payload } = action
+
+	switch (type) {
     case 'SET_PROJECTS':
       return {
-        toDo: action.payload?.filter(project => project.status === 'to-do'),
-        inProgress: action.payload?.filter(project => project.status === 'in-progress'),
-        done: action.payload?.filter(project => project.status === 'done')
+        toDo: payload?.filter(project => project.status === 'to-do'),
+        inProgress: payload?.filter(project => project.status === 'in-progress'),
+        done: payload?.filter(project => project.status === 'done')
       }
     
     case 'ADD_PROJECT':
       if (!state.toDo) {
         return {
           ...state,
-          toDo: [{ ...action.payload }]
+          toDo: [{ ...payload }]
         }
       }
 
       return {
         ...state,
-        toDo: [ ...state.toDo, { ...action.payload } ]
+        toDo: [ ...state.toDo, { ...payload } ]
       }
 
     case 'UPDATE_PROJECT_STATUS': {
-      if (action.payload.from === action.payload.to) {
+      if (payload.from === payload.to) {
         return state
       }
 
-      const updatedProject = { ...action.payload.data }
+      const updatedProject = { ...payload.data }
 
       const stateUpdates = {
         'toDo-For-inProgress': () => ({
@@ -89,12 +93,32 @@ export const projectReducer = (state: ProjectState_, action: Action) => {
       
       type Keys = keyof typeof stateUpdates
 
-      const key = `${action.payload.from}-For-${action.payload.to}` as Keys
+      const key = `${payload.from}-For-${payload.to}` as Keys
       const updateState = stateUpdates[key]
       
       return updateState()
     }
     
+    case 'ADD_TASK': {
+      const updateProject = (project: ProjectProps) => {
+        if (project.id === payload.idProject) {
+          if (project.tasks) {
+            project.tasks.push({ id: payload.idTask, task_name: payload.task, finished: false })
+          } else {
+            project.tasks = [{ id: payload.idTask, task_name: payload.task, finished: false }]
+          }
+        }
+
+        return project
+      }
+
+      return {
+        toDo: state.toDo?.map(project => updateProject(project)),
+        inProgress: state.inProgress?.map(project => updateProject(project)),
+        done: state.done?.map(project => updateProject(project))
+      }
+    }
+
 	  default:
 		  return state
 	}

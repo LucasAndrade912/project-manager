@@ -14,7 +14,7 @@ interface TaskFormProps {
 
 const TaskForm = ({ closeModal }: TaskFormProps) => {
 	const { register, handleSubmit, formState: { errors } } = useForm<{ task: string }>()
-	const { projects, setProjects, idProjectSelected } = useContext(AppContext)!
+	const { dispatch, idProjectSelected } = useContext(AppContext)!
 	const request = usePost()
 
 	const onFormSubmit = async (data: { task: string }) => {
@@ -23,33 +23,11 @@ const TaskForm = ({ closeModal }: TaskFormProps) => {
 			taskName: data.task
 		})
 
-		if (projects) {
-			const copyProjects = { ...projects }
-
-			const projectKeys = Object.keys(copyProjects) as Array<'to-do' | 'in-progress' | 'done'>
-			projectKeys.forEach(key => {
-				copyProjects[key]?.forEach(project => {
-					if (project.id === idProjectSelected) {
-						if (project.tasks) {
-							project.tasks.push({
-								id,
-								task_name: data.task,
-								finished: false
-							})
-						} else {
-							project.tasks = [{
-								id,
-								task_name: data.task,
-								finished: false
-							}]
-						}
-					}
-				})
-			})
-
-			setProjects(copyProjects)
-		}
-
+		dispatch({ type: 'ADD_TASK', payload: {
+			idProject: idProjectSelected,
+			idTask: id,
+			task: data.task
+		} })
 		closeModal()
 	}
 
