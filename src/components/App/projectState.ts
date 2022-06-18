@@ -15,11 +15,17 @@ interface UpdateProjectStatusPayload {
   to: 'toDo' | 'inProgress' | 'done'
 }
 
+interface UpdateTaskPayload {
+  id: number
+  finished: boolean
+}
+
 export type Action = 
   { type: 'SET_PROJECTS', payload: ProjectProps[] | undefined } |
   { type: 'ADD_PROJECT', payload: ProjectProps } |
   { type: 'UPDATE_PROJECT_STATUS', payload: UpdateProjectStatusPayload } |
-  { type: 'ADD_TASK', payload: Omit<TaskProps, 'finished'> }
+  { type: 'ADD_TASK', payload: Omit<TaskProps, 'finished'> } |
+  { type: 'UPDATE_TASK', payload: UpdateTaskPayload }
 
 export const projectReducer = (state: ProjectState, action: Action) => {
   const { type, payload } = action
@@ -116,6 +122,26 @@ export const projectReducer = (state: ProjectState, action: Action) => {
         toDo: state.toDo?.map(project => updateProject(project)),
         inProgress: state.inProgress?.map(project => updateProject(project)),
         done: state.done?.map(project => updateProject(project))
+      }
+    }
+
+    case 'UPDATE_TASK': {
+      const updateTask = (project: ProjectProps) => {
+        if (project.tasks) {
+          project.tasks.forEach(task => {
+            if (task.id === payload.id) {
+              task.finished = payload.finished
+            }
+          })
+        }
+
+        return project
+      }
+
+      return {
+        toDo: state.toDo?.map(project => updateTask(project)),
+        inProgress: state.inProgress?.map(project => updateTask(project)),
+        done: state.done?.map(project => updateTask(project))
       }
     }
 
