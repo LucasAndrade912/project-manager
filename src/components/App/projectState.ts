@@ -15,6 +15,11 @@ interface UpdateProjectStatusPayload {
   to: 'toDo' | 'inProgress' | 'done'
 }
 
+interface UpdateProjectImagePayload {
+  id: string
+  image: string
+}
+
 interface UpdateTaskPayload {
   id: number
   finished: boolean
@@ -24,6 +29,7 @@ export type Action =
   { type: 'SET_PROJECTS', payload: ProjectProps[] | undefined } |
   { type: 'ADD_PROJECT', payload: ProjectProps } |
   { type: 'UPDATE_PROJECT_STATUS', payload: UpdateProjectStatusPayload } |
+  { type: 'UPDATE_PROJECT_IMAGE', payload: UpdateProjectImagePayload } |
   { type: 'ADD_TASK', payload: Omit<TaskProps, 'finished'> } |
   { type: 'UPDATE_TASK', payload: UpdateTaskPayload }
 
@@ -103,6 +109,24 @@ export const projectReducer = (state: ProjectState, action: Action) => {
       const updateState = stateUpdates[key]
       
       return updateState()
+    }
+
+    case 'UPDATE_PROJECT_IMAGE': {
+      const { id, image } = payload
+
+      const updateImage = (project: ProjectProps) => {
+        if (project.id === id) {
+          project.image = image
+        }
+
+        return project
+      }
+
+      return {
+        toDo: state.toDo?.map(project => updateImage(project)),
+        inProgress: state.inProgress?.map(project => updateImage(project)),
+        done: state.done?.map(project => updateImage(project))
+      }
     }
     
     case 'ADD_TASK': {
