@@ -1,15 +1,26 @@
 import React, { useRef } from 'react'
+import { v4 as uuidV4 } from 'uuid'
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'
+
+import { storage } from '../../firebase'
 
 import { Label } from './styles'
 
 const UploadImage = () => {
 	const inputFileRef = useRef<HTMLInputElement | null>(null)
 
-	const handleChange = () => {
+	const handleUploadImage = async () => {
 		const files = inputFileRef.current?.files
 
 		if (files) {
-			console.log(files[0])
+			const file = files[0]
+
+			const storageRef = ref(storage, uuidV4())
+
+			await uploadBytes(storageRef, file)
+			const imageURL = await getDownloadURL(storageRef)
+
+			console.log(imageURL)
 		}
 	}
 
@@ -21,7 +32,7 @@ const UploadImage = () => {
 				id="image-file"
 				accept=".png, .jpg, .jpeg"
 				style={{ display: 'none' }}
-				onChange={handleChange}
+				onChange={handleUploadImage}
 				ref={inputFileRef}
 			/>
 		</>
