@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 
-import { Status, Tag, Task } from '../../components'
+import { Status, Tag, Task, UploadImage } from '../../components'
 import { Main } from '../Projects/styles'
 import { AppContext } from '../../components/App'
 import { ProjectProps } from '../../components/Project'
@@ -36,7 +36,7 @@ const Project = () => {
 		return (
 			<>
 				<Main>
-					{ image && <Image src={image} alt="Project Image" /> }
+					{ image ? <Image src={image} alt="Project Image" /> : <UploadImage /> }
 	
 					<ProjectTitle>
 						{ title }
