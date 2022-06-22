@@ -1,15 +1,25 @@
-import React, { useRef } from 'react'
+import React, { useContext, useRef, useState } from 'react'
 import { v4 as uuidV4 } from 'uuid'
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'
 
-import { storage } from '../../firebase'
+import { Loading } from '..'
+import { AppContext } from '../App'
+import { auth, storage } from '../../firebase'
+import { api } from '../../lib/api'
 
-import { Label } from './styles'
+import { Container, Label } from './styles'
 
-const UploadImage = () => {
+interface UploadImageProps {
+	idProject: string
+}
+
+const UploadImage = ({ idProject }: UploadImageProps) => {
+	const { dispatch } = useContext(AppContext)!
 	const inputFileRef = useRef<HTMLInputElement | null>(null)
+	const [isUploadingImage, setIsUploadingImage] = useState(false)
 
 	const handleUploadImage = async () => {
+		setIsUploadingImage(true)
 		const files = inputFileRef.current?.files
 
 		if (files) {
@@ -20,22 +30,44 @@ const UploadImage = () => {
 			await uploadBytes(storageRef, file)
 			const imageURL = await getDownloadURL(storageRef)
 
-			console.log(imageURL)
+			const tokenId = await auth.currentUser?.getIdToken()
+
+			await api.put('/projects', {
+				idProject,
+				changes: {
+					image: imageURL
+				}
+			}, {
+				headers: { 'Authorization': `Bearer ${tokenId}` }
+			})
+
+			dispatch({ type: 'UPDATE_PROJECT_IMAGE', payload: {
+				id: idProject,
+				image: imageURL
+			} })
+
+			setIsUploadingImage(false)
 		}
 	}
 
 	return (
-		<>
-			<Label htmlFor="image-file">+ Add Cover</Label>
-			<input
-				type="file"
-				id="image-file"
-				accept=".png, .jpg, .jpeg"
-				style={{ display: 'none' }}
-				onChange={handleUploadImage}
-				ref={inputFileRef}
-			/>
-		</>
+		<Container>
+			{
+				!isUploadingImage ? (
+					<>
+						<Label htmlFor="image-file">+ Add Cover</Label>
+						<input
+							type="file"
+							id="image-file"
+							accept=".png, .jpg, .jpeg"
+							style={{ display: 'none' }}
+							onChange={handleUploadImage}
+							ref={inputFileRef}
+						/>
+					</>
+				) : <Loading size="1.875rem" />
+			}
+		</Container>
 	)
 }
 

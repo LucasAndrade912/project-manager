@@ -36,7 +36,7 @@ const Project = () => {
 		return (
 			<>
 				<Main>
-					{ image ? <Image src={image} alt="Project Image" /> : <UploadImage /> }
+					{ image ? <Image src={image} alt="Project Image" /> : <UploadImage idProject={id} /> }
 	
 					<ProjectTitle>
 						{ title }
