@@ -52,13 +52,21 @@ const Project = ({ id, title, description, status, image, tags, tasks }: Project
 			</ProjectDescription>
 
 			{ tags && (
-				tags.map(tag => (
-					<Tag
-						key={tag.tag_name}
-						tag_name={tag.tag_name}
-						color={tag.color}
-					/>
-				))
+				tags.length < 3 ? (
+					tags.map(tag => (
+						<Tag
+							key={tag.tag_name}
+							tag_name={tag.tag_name}
+							color={tag.color}
+						/>
+					))
+				) : (
+					<>
+						<Tag tag_name={tags[0].tag_name} color={tags[0].color} />
+						<Tag tag_name={tags[1].tag_name} color={tags[1].color} />
+						<Tag tag_name={`+${tags.length - 2}`} color={{ color_name: '#0F62FE' }} />
+					</>
+				)
 			) }
 		</Container>
 	)
