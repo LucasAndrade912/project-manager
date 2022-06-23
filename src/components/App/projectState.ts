@@ -58,57 +58,31 @@ export const projectReducer = (state: ProjectState, action: Action) => {
       }
 
     case 'UPDATE_PROJECT_STATUS': {
-      if (payload.from === payload.to) {
+      const { data, to, from } = payload
+
+      const updatedProject = { ...data }
+      updatedProject.status = to === 'toDo' ? 'to-do' : to === 'inProgress' ? 'in-progress' : 'done'
+
+      state[`${from}`] = state[`${from}`]?.filter(project => project.id !== updatedProject.id)
+
+      if (to === 'toDo') {
+        return {
+          ...state,
+          toDo: state.toDo ? [ { ...updatedProject }, ...state.toDo ] : [{ ...updatedProject }]
+        }
+      } else if (to === 'inProgress') {
+        return {
+          ...state,
+          inProgress: state.inProgress ? [ { ...updatedProject }, ...state.inProgress ] : [{ ...updatedProject }]
+        }
+      } else if (to === 'done') {
+        return {
+          ...state,
+          done: state.done ? [ { ...updatedProject }, ...state.done ] : [{ ...updatedProject }]
+        }
+      } else {
         return state
       }
-
-      const updatedProject = { ...payload.data }
-
-      const stateUpdates = {
-        'toDo-For-inProgress': () => ({
-          ...state,
-          toDo: state.toDo?.filter(project => project.id !== updatedProject.id),
-          inProgress: state.inProgress ? [ ...state.inProgress , { ...updatedProject }] : [{ ...updatedProject }]
-        
-        }),
-
-        'toDo-For-done': () => ({
-          ...state,
-          toDo: state.toDo?.filter(project => project.id !== updatedProject.id),
-          done: state.done ? [ ...state.done , { ...updatedProject }] : [{ ...updatedProject }]
-        }),
-
-        'inProgress-For-toDo': () => ({
-          ...state,
-          inProgress: state.inProgress?.filter(project => project.id !== updatedProject.id),
-          toDo: state.toDo ? [ ...state.toDo , { ...updatedProject }] : [{ ...updatedProject }]
-        }),
-
-        'inProgress-For-done': () => ({
-          ...state,
-          inProgress: state.inProgress?.filter(project => project.id !== updatedProject.id),
-          done: state.done ? [ ...state.done , { ...updatedProject }] : [{ ...updatedProject }]
-        }),
-
-        'done-For-toDo': () => ({
-          ...state,
-          done: state.done?.filter(project => project.id !== updatedProject.id),
-          toDo: state.toDo ? [ ...state.toDo , { ...updatedProject }] : [{ ...updatedProject }]
-        }),
-
-        'done-For-inProgress': () => ({
-          ...state,
-          done: state.done?.filter(project => project.id !== updatedProject.id),
-          inProgress: state.inProgress ? [ ...state.inProgress , { ...updatedProject }] : [{ ...updatedProject }]
-        })
-      }
-      
-      type Keys = keyof typeof stateUpdates
-
-      const key = `${payload.from}-For-${payload.to}` as Keys
-      const updateState = stateUpdates[key]
-      
-      return updateState()
     }
 
     case 'UPDATE_PROJECT_IMAGE': {
