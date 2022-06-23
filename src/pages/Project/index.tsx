@@ -33,6 +33,8 @@ const Project = () => {
 	if (projectSelected) {
 		const { id, image, title, description, status, tags, tasks } = projectSelected
 
+		tasks?.sort((a: { id: number }, b: { id: number }) => a.id - b.id)
+
 		return (
 			<>
 				<Main>
