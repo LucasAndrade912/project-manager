@@ -2,12 +2,14 @@ import React, { useEffect, useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import { ProjectsGroup } from '../../components'
-import { AppContext } from '../../components/App'
+import { AppContext, Color } from '../../components/App'
 import { auth } from '../../firebase'
 import { ProjectProps } from '../../components/Project'
 import { api } from '../../lib/api'
 import { formatStatus } from '../../utils'
 import { AuthContext } from '../../routes'
+import { useFetch } from '../../hooks/useFetch'
+import { TagProps } from '../../components/Tag'
 
 import {
 	Main,
@@ -15,11 +17,20 @@ import {
 	AllProjects
 } from './styles'
 
+type ProjectFetch = { projects: ProjectProps[] }
+type TagFetch = { tags: TagProps[] }
+type ColorFetch = {
+	colors: Color[]
+}
 
 const Projects = () => {
 	const navigate = useNavigate()
 	const authContext = useContext(AuthContext)
-	const { projects, dispatch } = useContext(AppContext)!
+	const { projects, dispatch, setTags, setColors } = useContext(AppContext)!
+
+	const myProjects = useFetch<ProjectFetch>('/projects')?.projects
+	const myTags = useFetch<TagFetch>('/tags')?.tags
+	const myColors = useFetch<ColorFetch>('/colors')?.colors
 
 	const updateProject = async (data: ProjectProps, boardStatus: 'to-do' | 'in-progress' | 'done') => {
 		dispatch({ type: 'UPDATE_PROJECT_STATUS', payload: {
@@ -45,6 +56,13 @@ const Projects = () => {
 			navigate('/login')
 		}
 	}, [authContext])
+
+	useEffect(() => {
+		setTags(myTags)
+		setColors(myColors)
+
+		dispatch({ type: 'SET_PROJECTS', payload: myProjects })
+	}, [myProjects, myTags, myColors])
 
 	return (
 		<>

@@ -17,6 +17,7 @@ interface AppContextProps {
 	tags: TagProps[] | undefined
 	setTags: React.Dispatch<React.SetStateAction<TagProps[] | undefined>>
 	colors: Color[] | undefined
+	setColors: React.Dispatch<React.SetStateAction<Color[] | undefined>>
 	idProjectSelected: string
 	setIdProjectSelected: React.Dispatch<React.SetStateAction<string>>
 	openModal: (type: ModalType, idProject?: string) => void
@@ -24,15 +25,9 @@ interface AppContextProps {
 
 export type ModalType = 'project' | 'task' | 'tag'
 
-interface Color {
+export interface Color {
 	id: number
 	color_name: string
-}
-
-type ProjectFetch = { projects: ProjectProps[] }
-type TagFetch = { tags: TagProps[] }
-type ColorFetch = {
-	colors: Color[]
 }
 
 export const AppContext = createContext<AppContextProps | null>(null)
@@ -48,10 +43,6 @@ const App = () => {
 	const [idProjectSelected, setIdProjectSelected] = useState('')
 	const [modalType, setModalType] = useState<ModalType>()
 	const [isModalOpened, setIsModalOpened] = useState(false)
-
-	const myProjects = useFetch<ProjectFetch>('/projects')?.projects
-	const myTags = useFetch<TagFetch>('/tags')?.tags
-	const myColors = useFetch<ColorFetch>('/colors')?.colors
 
 	const { pathname } = useLocation()
 	const navigate = useNavigate()
@@ -70,13 +61,6 @@ const App = () => {
 	}
 
 	useEffect(() => {
-		setTags(myTags)
-		setColors(myColors)
-
-		dispatch({ type: 'SET_PROJECTS', payload: myProjects })
-	}, [myProjects, myTags, myColors])
-
-	useEffect(() => {
 		if (pathname === '/') {
 			navigate('projects')
 		}
@@ -86,7 +70,7 @@ const App = () => {
 		<Container>
 			<Menu openModal={openModal} />
 
-			<AppContext.Provider value={{ projects, dispatch, tags, setTags, colors, idProjectSelected, setIdProjectSelected, openModal }}>
+			<AppContext.Provider value={{ projects, dispatch, tags, setTags, colors, setColors, idProjectSelected, setIdProjectSelected, openModal }}>
 				<Outlet/>
 			
 				{ isModalOpened && createPortal(
