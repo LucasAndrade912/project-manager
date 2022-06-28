@@ -10,13 +10,12 @@ export type ColorActions = { type: 'SET_COLORS', payload: ColorState }
 
 export const colorReducer = (state: ColorState, action: ColorActions) => {
 	const { type, payload } = action
-
+	
 	switch (type) {
 		case 'SET_COLORS': {
-			return {
-				...state,
-				...payload
-			}
+			if (payload) return [ ...payload ]
+
+			return state
 		}
 	
 		default: {

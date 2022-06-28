@@ -12,10 +12,9 @@ export const tagReducer = (state: TagState, action: TagActions) => {
 
 	switch (type) {
 		case 'SET_TAGS': {
-			return {
-				...state,
-				...payload
-			}
+			if (payload) return [ ...payload ]
+
+			return state
 		}
 	
 		case 'ADD_TAG': {
