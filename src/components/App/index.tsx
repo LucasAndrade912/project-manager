@@ -3,10 +3,9 @@ import React, { useState, useEffect, createContext, useReducer } from 'react'
 import { createPortal } from 'react-dom'
 import { Outlet, useLocation, useNavigate } from 'react-router-dom'
 
+import Store from '../../store'
 import { Menu, Modal, ProjectForm, TaskForm, TagForm } from '..'
-import { ProjectProps } from '../Project'
 import { TagProps } from '../Tag'
-import { useFetch } from '../../hooks/useFetch'
 import { projectReducer, ProjectState, Action } from './projectState'
 
 import { Container } from './styles'
@@ -67,24 +66,26 @@ const App = () => {
 	}, [])
 
 	return (
-		<Container>
-			<Menu openModal={openModal} />
+		<Store>
+			<Container>
+				<Menu openModal={openModal} />
 
-			<AppContext.Provider value={{ projects, dispatch, tags, setTags, colors, setColors, idProjectSelected, setIdProjectSelected, openModal }}>
-				<Outlet/>
-			
-				{ isModalOpened && createPortal(
-					<Modal>
-						{
-							modalType === 'project' ? <ProjectForm closeModal={closeModal} /> :
-							modalType === 'task' ? <TaskForm closeModal={closeModal} /> :
-							modalType === 'tag' ? <TagForm closeModal={closeModal} /> : null
-						}
-					</Modal>,
-					document.querySelector('#modal')!
-				) }
-			</AppContext.Provider>
-		</Container>
+				<AppContext.Provider value={{ projects, dispatch, tags, setTags, colors, setColors, idProjectSelected, setIdProjectSelected, openModal }}>
+					<Outlet/>
+				
+					{ isModalOpened && createPortal(
+						<Modal>
+							{
+								modalType === 'project' ? <ProjectForm closeModal={closeModal} /> :
+								modalType === 'task' ? <TaskForm closeModal={closeModal} /> :
+								modalType === 'tag' ? <TagForm closeModal={closeModal} /> : null
+							}
+						</Modal>,
+						document.querySelector('#modal')!
+					) }
+				</AppContext.Provider>
+			</Container>
+		</Store>
 	)
 }
 

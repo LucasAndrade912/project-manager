@@ -875,6 +875,13 @@
   resolved "https://registry.yarnpkg.com/@types/prop-types/-/prop-types-15.7.4.tgz#fcf7205c25dff795ee79af1e30da2c9790808f11"
   integrity sha512-rZ5drC/jWjrArrS8BR6SIr4cWpW09RNTYt9AMZo3Jwwif+iacXAqgVjm0B0Bv/S1jhDXKHqRVNCbACkJ89RAnQ==
 
+"@types/react-combine-reducers@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@types/react-combine-reducers/-/react-combine-reducers-1.0.0.tgz#1dbfa398872890f23b5c450de9f8fc1af9ad90d0"
+  integrity sha512-FRR5PBN1/2xZ83huIC/H8JHE51srN5cW216qwebauNVv6SXPkyH8RWwIqSUkxhaw8bYwZGyVQ++o/uBYvdLBBw==
+  dependencies:
+    "@types/react" "*"
+
 "@types/react-dom@^17.0.10":
   version "17.0.14"
   resolved "https://registry.yarnpkg.com/@types/react-dom/-/react-dom-17.0.14.tgz#c8f917156b652ddf807711f5becbd2ab018dea9f"
@@ -1229,6 +1236,11 @@ core-js@3.6.5:
   version "3.6.5"
   resolved "https://registry.yarnpkg.com/core-js/-/core-js-3.6.5.tgz#7395dc273af37fb2e50e9bd3d9fe841285231d1a"
   integrity sha512-vZVEEwZoIsI+vPEuoF9Iqf5H7/M3eeQqWlQnYa8FSKKePuYTf5MWnxb5SDAzCa60b3JBRS5g9b+Dq7b1y/RCrA==
+
+core-js@^3.6.5:
+  version "3.23.3"
+  resolved "https://registry.yarnpkg.com/core-js/-/core-js-3.23.3.tgz#3b977612b15da6da0c9cc4aec487e8d24f371112"
+  integrity sha512-oAKwkj9xcWNBAvGbT//WiCdOMpb9XQG92/Fe3ABFM/R16BsHgePG00mFOgKf7IsCtfj8tA1kHtf/VwErhriz5Q==
 
 core-util-is@~1.0.0:
   version "1.0.3"
@@ -2410,6 +2422,13 @@ queue-microtask@^1.2.2:
   version "1.2.3"
   resolved "https://registry.yarnpkg.com/queue-microtask/-/queue-microtask-1.2.3.tgz#4929228bbc724dfac43e0efb058caf7b6cfb6243"
   integrity sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A==
+
+react-combine-reducers@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/react-combine-reducers/-/react-combine-reducers-1.1.1.tgz#e746e9bce279d8b1e83d8e5b8a07e80c18e472ed"
+  integrity sha512-wHVJj9RdtoqSY8np9CFgOjUxHZwrlKvETOyJ3EZwDrVkQ8evz/Kl9khZ1ZzcirdNwAAWa2gDNqPfDsYtMtoHBQ==
+  dependencies:
+    core-js "^3.6.5"
 
 react-dnd-html5-backend@^16.0.1:
   version "16.0.1"
