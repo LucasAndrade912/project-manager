@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react'
 import { auth } from '../../firebase'
 
 import { api } from '../../lib/api'
-import { AppContext } from '../App'
+import { AppContext } from '../../store'
 
 import { Checkbox, Checkmark, Container, TaskLabel } from './styles'
 
@@ -14,8 +14,8 @@ export interface TaskProps {
 }
 
 const Task = ({ idProject, idTask, task, finished }: TaskProps) => {
+	const { dispatch } = useContext(AppContext)
 	const [isFinished, setIsFinished] = useState(finished)
-	const { dispatch } = useContext(AppContext)!
 
 	const updateTask = async () => {
 		setIsFinished(!isFinished)

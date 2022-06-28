@@ -21,18 +21,18 @@ const [rootReducer, initialState] = combineReducers({
 	colors: [colorReducer, undefined]
 })
 
-export const MainContext = createContext<Context>({
+export const AppContext = createContext<Context>({
 	state: initialState,
 	dispatch: () => {}
 })
 
 const Store = ({ children }: { children: JSX.Element }) => {
 	const [state, dispatch] = useReducer<RootReducer>(rootReducer, initialState)
-  
+	
 	return (
-		<MainContext.Provider value={{ state, dispatch }}>
+		<AppContext.Provider value={{ state, dispatch }}>
 			{ children }
-		</MainContext.Provider>
+		</AppContext.Provider>
 	)
 }
 

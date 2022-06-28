@@ -1,8 +1,8 @@
 import React, { useEffect, useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 
+import { AppContext } from '../../store'
 import { ProjectsGroup } from '../../components'
-import { AppContext, Color } from '../../components/App'
 import { auth } from '../../firebase'
 import { ProjectProps } from '../../components/Project'
 import { api } from '../../lib/api'
@@ -10,6 +10,7 @@ import { formatStatus } from '../../utils'
 import { AuthContext } from '../../routes'
 import { useFetch } from '../../hooks/useFetch'
 import { TagProps } from '../../components/Tag'
+import { Color } from '../../store/reducers/color.reducer'
 
 import {
 	Main,
@@ -19,18 +20,16 @@ import {
 
 type ProjectFetch = { projects: ProjectProps[] }
 type TagFetch = { tags: TagProps[] }
-type ColorFetch = {
-	colors: Color[]
-}
+type ColorFetch = { colors: Color[] }
 
 const Projects = () => {
 	const navigate = useNavigate()
 	const authContext = useContext(AuthContext)
-	const { projects, dispatch, setTags, setColors } = useContext(AppContext)!
+	const { state: { projects } , dispatch } = useContext(AppContext)
 
-	const myProjects = useFetch<ProjectFetch>('/projects')?.projects
-	const myTags = useFetch<TagFetch>('/tags')?.tags
-	const myColors = useFetch<ColorFetch>('/colors')?.colors
+	const allProjects = useFetch<ProjectFetch>('/projects')?.projects
+	const allTags = useFetch<TagFetch>('/tags')?.tags
+	const allColors = useFetch<ColorFetch>('/colors')?.colors
 
 	const updateProject = async (data: ProjectProps, boardStatus: 'to-do' | 'in-progress' | 'done') => {
 		dispatch({ type: 'UPDATE_PROJECT_STATUS', payload: {
@@ -58,11 +57,10 @@ const Projects = () => {
 	}, [authContext])
 
 	useEffect(() => {
-		setTags(myTags)
-		setColors(myColors)
-
-		dispatch({ type: 'SET_PROJECTS', payload: myProjects })
-	}, [myProjects, myTags, myColors])
+		dispatch({ type: 'SET_PROJECTS', payload: allProjects })
+		dispatch({ type: 'SET_TAGS', payload: allTags })
+		dispatch({ type: 'SET_COLORS', payload: allColors })
+	}, [allProjects, allTags, allColors])
 
 	return (
 		<>

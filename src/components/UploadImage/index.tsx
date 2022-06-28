@@ -3,7 +3,7 @@ import { v4 as uuidV4 } from 'uuid'
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'
 
 import { Loading } from '..'
-import { AppContext } from '../App'
+import { AppContext } from '../../store'
 import { auth, storage } from '../../firebase'
 import { api } from '../../lib/api'
 
@@ -14,7 +14,7 @@ interface UploadImageProps {
 }
 
 const UploadImage = ({ idProject }: UploadImageProps) => {
-	const { dispatch } = useContext(AppContext)!
+	const { dispatch } = useContext(AppContext)
 	const inputFileRef = useRef<HTMLInputElement | null>(null)
 	const [isUploadingImage, setIsUploadingImage] = useState(false)
 

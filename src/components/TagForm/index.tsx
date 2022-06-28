@@ -2,7 +2,7 @@ import React, { FormEvent, useContext, useEffect, useState } from 'react'
 
 import { CloseIcon } from '../../assets'
 import { usePost } from '../../hooks/usePost'
-import { AppContext } from '../App'
+import { AppContext } from '../../store'
 import { Header, Title, Image, Submit } from '../ProjectForm/styles'
 
 import { InputField, Container, Colors, Color, Tag } from './styles'
@@ -17,9 +17,9 @@ interface Color {
 }
 
 const TagForm = ({ closeModal }: TagFormProps) => {
+	const { state: { colors }, dispatch } = useContext(AppContext)
 	const [tagText, setTagText] = useState('')
 	const [colorSelected, setColorSelected] = useState<Color>()
-	const { setTags, colors } = useContext(AppContext)!
 	const request = usePost()
 
 	const selectColor = (id: number, color: string) => {
@@ -39,21 +39,11 @@ const TagForm = ({ closeModal }: TagFormProps) => {
 		})
 
 		if (colorSelected) {
-			setTags(prevState => {
-				if (prevState) {
-					return [...prevState, {
-						id: idTag,
-						tag_name: tagText,
-						color: { color_name: colorSelected.color_name }
-					}]
-				} else {
-					return [{
-						id: idTag,
-						tag_name: tagText,
-						color: { color_name: colorSelected.color_name }
-					}]
-				}
-			})
+			dispatch({ type: 'ADD_TAG', payload: {
+				id: idTag,
+				tag_name: tagText,
+				color: { color_name: colorSelected.color_name }
+			} })
 		}
 
 		closeModal()

@@ -3,8 +3,7 @@ import { useForm } from 'react-hook-form'
 
 import { CloseIcon } from '../../assets'
 import { usePost } from '../../hooks/usePost'
-import { AppContext } from '../App'
-import { TagProps } from '../Tag'
+import { AppContext } from '../../store'
 
 import {
 	Header,
@@ -30,8 +29,8 @@ interface FormData {
 }
 
 const ProjectForm = ({ closeModal }: FormProps) => {
+	const { state: { tags }, dispatch } = useContext(AppContext)
 	const [selectedTags, setSelectedTags] = useState<number[]>([])
-	const { dispatch, tags } = useContext(AppContext)!
 	const { register, handleSubmit, formState: { errors } } = useForm<FormData>()
 	const request = usePost()
 

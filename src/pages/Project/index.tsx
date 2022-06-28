@@ -1,9 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react'
 
+import { AppContext } from '../../store'
 import { Status, Tag, Task, UploadImage } from '../../components'
-import { Main } from '../Projects/styles'
-import { AppContext } from '../../components/App'
+import { OutletContext } from '../../components/App'
 import { ProjectProps } from '../../components/Project'
+import { Main } from '../Projects/styles'
 
 import {
 	ProjectTitle,
@@ -15,8 +16,9 @@ import {
 } from './styles'
 
 const Project = () => {
+	const { state: { projects } } = useContext(AppContext)
+	const { openModal, idProjectSelected } = useContext(OutletContext)
 	const [projectSelected, setProjectSelected] = useState<ProjectProps | null>(null)
-	const { projects, idProjectSelected, openModal } = useContext(AppContext)!
 
 	useEffect(() => {
 		const projectKeys = Object.keys(projects) as Array<'toDo' | 'inProgress' | 'done'>

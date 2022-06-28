@@ -3,18 +3,19 @@ import { useForm } from 'react-hook-form'
 
 import { CloseIcon } from '../../assets'
 import { usePost } from '../../hooks/usePost'
-import { AppContext } from '../App'
+import { AppContext } from '../../store'
 import { Header, Title, Image, ErrorMessage } from '../ProjectForm/styles'
 
 import { Field, InputField, SubmitButton } from './styles'
 
 interface TaskFormProps {
   closeModal: () => void
+	idProjectSelected: string
 }
 
-const TaskForm = ({ closeModal }: TaskFormProps) => {
+const TaskForm = ({ closeModal, idProjectSelected }: TaskFormProps) => {
+	const { dispatch } = useContext(AppContext)
 	const { register, handleSubmit, formState: { errors } } = useForm<{ task: string }>()
-	const { dispatch, idProjectSelected } = useContext(AppContext)!
 	const request = usePost()
 
 	const onFormSubmit = async (data: { task: string }) => {
