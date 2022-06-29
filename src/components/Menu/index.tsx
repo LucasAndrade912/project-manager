@@ -33,15 +33,15 @@ const Menu = ({ openModal }: MenuProps) => {
 			</Link>
 
 			<Buttons>
-				<Button onClick={() => openModal('project')}>
+				<Button title="Create new project" onClick={() => openModal('project')}>
 					<ButtonIcon src={NewProjectIcon} alt="New project icon" />
 				</Button>
 
-				<Button onClick={() => openModal('tag')}>
+				<Button title="Create new tag" onClick={() => openModal('tag')}>
 					<ButtonIcon src={FilterIcon} alt="Filter icon" />
 				</Button>
 
-				<Button onClick={logOut}>
+				<Button title="Log out" onClick={logOut}>
 					<ButtonIcon src={LogoutIcon} alt="Log out icon" />
 				</Button>
 			</Buttons>
