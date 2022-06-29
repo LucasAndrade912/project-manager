@@ -3,9 +3,9 @@ import { v4 as uuidV4 } from 'uuid'
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'
 
 import { Loading } from '..'
+import { api } from '../../lib/api'
 import { AppContext } from '../../store'
 import { auth, storage } from '../../firebase'
-import { api } from '../../lib/api'
 
 import { Container, Label } from './styles'
 

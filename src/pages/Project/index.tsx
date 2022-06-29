@@ -1,10 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react'
 
 import { AppContext } from '../../store'
-import { Status, Tag, Task, UploadImage } from '../../components'
+import { Main } from '../Projects/styles'
 import { OutletContext } from '../../components/App'
 import { ProjectProps } from '../../components/ProjectCard'
-import { Main } from '../Projects/styles'
+import { Status, Tag, Task, UploadImage } from '../../components'
 
 import {
 	ProjectTitle,

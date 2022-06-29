@@ -1,8 +1,8 @@
 import React, { FormEvent, useContext, useEffect, useState } from 'react'
 
+import { AppContext } from '../../store'
 import { CloseIcon } from '../../assets'
 import { usePost } from '../../hooks/usePost'
-import { AppContext } from '../../store'
 import { Header, Title, Image, Submit } from '../ProjectForm/styles'
 
 import { InputField, Container, Colors, Color, Tag } from './styles'

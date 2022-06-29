@@ -2,6 +2,7 @@ import React, { useEffect, useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { signInWithPopup } from 'firebase/auth'
 
+import { AuthContext } from '../../routes'
 import { auth, provider } from '../../firebase'
 import { GoogleIcon, LogoIcon } from '../../assets'
 
@@ -15,8 +16,6 @@ import {
 	LogoWrapper,
 	Logo
 } from './styles'
-import { AuthContext } from '../../routes'
-
 
 const Login = () => {
 	const authContext = useContext(AuthContext)

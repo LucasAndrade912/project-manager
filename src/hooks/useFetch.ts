@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
-import { auth } from '../firebase'
+
 import { api } from '../lib/api'
+import { auth } from '../firebase'
 
 export function useFetch<T>(resource: string) {
 	const [data, setData] = useState<T | null>(null)

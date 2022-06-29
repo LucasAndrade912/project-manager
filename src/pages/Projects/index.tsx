@@ -1,16 +1,16 @@
 import React, { useEffect, useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-import { AppContext } from '../../store'
-import { ProjectsGroup } from '../../components'
-import { auth } from '../../firebase'
-import { ProjectProps } from '../../components/ProjectCard'
 import { api } from '../../lib/api'
+import { auth } from '../../firebase'
+import { AppContext } from '../../store'
 import { formatStatus } from '../../utils'
 import { AuthContext } from '../../routes'
 import { useFetch } from '../../hooks/useFetch'
 import { TagProps } from '../../components/Tag'
+import { ProjectsGroup } from '../../components'
 import { Color } from '../../store/reducers/color.reducer'
+import { ProjectProps } from '../../components/ProjectCard'
 
 import {
 	Main,

@@ -2,8 +2,8 @@ import React, { useContext } from 'react'
 import { useForm } from 'react-hook-form'
 
 import { CloseIcon } from '../../assets'
-import { usePost } from '../../hooks/usePost'
 import { AppContext } from '../../store'
+import { usePost } from '../../hooks/usePost'
 import { Header, Title, Image, ErrorMessage } from '../ProjectForm/styles'
 
 import { Field, InputField, SubmitButton } from './styles'

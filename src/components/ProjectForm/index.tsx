@@ -1,9 +1,9 @@
 import React, { useContext, useState } from 'react'
 import { useForm } from 'react-hook-form'
 
+import { AppContext } from '../../store'
 import { CloseIcon } from '../../assets'
 import { usePost } from '../../hooks/usePost'
-import { AppContext } from '../../store'
 
 import {
 	Header,

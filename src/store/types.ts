@@ -1,6 +1,6 @@
-import { ProjectState, ProjectActions } from './reducers/project.reducer'
 import { TagState, TagActions } from './reducers/tag.reducer'
 import { ColorState, ColorActions } from './reducers/color.reducer'
+import { ProjectState, ProjectActions } from './reducers/project.reducer'
 
 export interface State {
   projects: ProjectState

@@ -2,8 +2,8 @@ import React from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { signOut } from 'firebase/auth'
 
-import { auth } from '../../firebase'
 import { ModalType } from '../App'
+import { auth } from '../../firebase'
 import { LogoIcon, NewProjectIcon, FilterIcon, LogoutIcon } from '../../assets'
 
 import {

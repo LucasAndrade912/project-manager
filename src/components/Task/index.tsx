@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react'
-import { auth } from '../../firebase'
 
 import { api } from '../../lib/api'
+import { auth } from '../../firebase'
 import { AppContext } from '../../store'
 
 import { Checkbox, Checkmark, Container, TaskLabel } from './styles'

@@ -1,5 +1,5 @@
-import { auth } from '../firebase'
 import { api } from '../lib/api'
+import { auth } from '../firebase'
 
 export function usePost() {
 	return async function (resource: string, body: unknown) {

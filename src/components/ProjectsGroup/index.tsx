@@ -3,6 +3,7 @@ import { useDrop } from 'react-dnd'
 
 import { ProjectCard, Status } from '..'
 import { ProjectProps } from '../ProjectCard'
+
 import { Container } from './styles'
 
 interface ProjectsGroupProps {

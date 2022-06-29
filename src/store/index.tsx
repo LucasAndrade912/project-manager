@@ -5,9 +5,9 @@ import combineReducers from 'react-combine-reducers'
 
 import { Context, Action, State } from './types'
 
-import { projectReducer } from './reducers/project.reducer'
 import { tagReducer } from './reducers/tag.reducer'
 import { colorReducer } from './reducers/color.reducer'
+import { projectReducer } from './reducers/project.reducer'
 
 type RootReducer = (state: State, action: Action) => State
 
