@@ -1,6 +1,6 @@
 /* eslint-disable no-mixed-spaces-and-tabs */
 /* eslint-disable indent */
-import { ProjectProps } from '../../components/Project'
+import { ProjectProps } from '../../components/ProjectCard'
 import { TaskProps } from '../../components/Task'
 
 export interface ProjectState {

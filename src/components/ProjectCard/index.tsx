@@ -23,7 +23,7 @@ export interface ProjectProps {
 	tasks?: TaskProps[]
 }
 
-const Project = ({ id, title, description, status, image, tags, tasks }: ProjectProps) => {
+const ProjectCard = ({ id, title, description, status, image, tags, tasks }: ProjectProps) => {
 	const { setIdProjectSelected } = useContext(OutletContext)
 	const navigate = useNavigate()
 	const [, dragRef] = useDrag({
@@ -73,4 +73,4 @@ const Project = ({ id, title, description, status, image, tags, tasks }: Project
 	)
 }
 
-export default Project
+export default ProjectCard

@@ -1,8 +1,8 @@
 import React from 'react'
 import { useDrop } from 'react-dnd'
 
-import { Project, Status } from '..'
-import { ProjectProps } from '../Project'
+import { ProjectCard, Status } from '..'
+import { ProjectProps } from '../ProjectCard'
 import { Container } from './styles'
 
 interface ProjectsGroupProps {
@@ -24,7 +24,7 @@ const ProjectsGroup = ({ status, data, updateData }: ProjectsGroupProps) => {
 			<Status status={status} />
 			{
 				data?.map(project => (
-					<Project key={project.id} { ...project } />
+					<ProjectCard key={project.id} { ...project } />
 				))
 			}
 		</Container>
