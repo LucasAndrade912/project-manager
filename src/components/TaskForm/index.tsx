@@ -18,7 +18,7 @@ const TaskForm = ({ closeModal, idProjectSelected }: TaskFormProps) => {
 	const { register, handleSubmit, formState: { errors } } = useForm<{ task: string }>()
 	const request = usePost()
 
-	const onFormSubmit = async (data: { task: string }) => {
+	const handleCreateTask = async (data: { task: string }) => {
 		const id = await request('/tasks', {
 			idProject: idProjectSelected,
 			taskName: data.task
@@ -33,7 +33,7 @@ const TaskForm = ({ closeModal, idProjectSelected }: TaskFormProps) => {
 	}
 
 	return (
-		<form onSubmit={handleSubmit(onFormSubmit)}>
+		<form onSubmit={handleSubmit(handleCreateTask)}>
 			<Header>
 				<Title>
           Crie uma tarefa

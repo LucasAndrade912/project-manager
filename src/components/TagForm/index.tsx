@@ -30,7 +30,7 @@ const TagForm = ({ closeModal }: TagFormProps) => {
 		setTagText(text)
 	}
 
-	const createTag = async (event: FormEvent) => {
+	const handleCreateTag = async (event: FormEvent) => {
 		event.preventDefault()
 
 		const idTag: number | undefined = await request('/tags', {
@@ -58,7 +58,7 @@ const TagForm = ({ closeModal }: TagFormProps) => {
 	}, [])
 
 	return (
-		<form onSubmit={createTag}>
+		<form onSubmit={handleCreateTag}>
 			<Header>
 				<Title>
           Crie uma tag

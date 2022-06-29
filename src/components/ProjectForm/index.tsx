@@ -43,7 +43,7 @@ const ProjectForm = ({ closeModal }: FormProps) => {
 		}
 	}
 
-	const onFormSubmit = async (data: FormData) => {
+	const handleCreateProject = async (data: FormData) => {
 		const body = { ...data, idTags: selectedTags }
 		
 		try {
@@ -64,7 +64,7 @@ const ProjectForm = ({ closeModal }: FormProps) => {
 	}
 
 	return (
-		<form onSubmit={handleSubmit(onFormSubmit)}>
+		<form onSubmit={handleSubmit(handleCreateProject)}>
 			<Header>
 				<Title>Crie seu Projeto</Title>
 
