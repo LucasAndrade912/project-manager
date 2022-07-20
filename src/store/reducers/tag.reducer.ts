@@ -18,10 +18,14 @@ export const tagReducer = (state: TagState, action: TagActions) => {
 		}
 	
 		case 'ADD_TAG': {
-			return {
-				...state,
-				...payload
+			if (state) {
+				return [
+					...state,
+					{...payload}
+				]
 			}
+
+			return [{ ...payload }]
 		}
 
 		default: {
