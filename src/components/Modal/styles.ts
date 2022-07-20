@@ -16,4 +16,11 @@ export const Content = styled.div`
   background-color: #F6F6F6;
   border-radius: 5px;
   padding: 4.375rem 3.125rem;
+  
+  @media (max-width: 375px) {
+    width: 90%;
+    max-height: 90%;
+    overflow-y: scroll;
+    padding: 4.375rem 2.25rem;
+  }
 `

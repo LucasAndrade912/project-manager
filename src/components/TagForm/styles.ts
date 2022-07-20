@@ -27,6 +27,7 @@ export const Color = styled.div`
   width: 1.875rem;
   height: 1.875rem;
   margin-right: 1.5rem;
+  margin-bottom: 1.5rem;
   background-color: ${(props: Props) => {
 		if (props.color) {
 			return props.color
@@ -45,7 +46,7 @@ export const Color = styled.div`
 export const Tag = styled.div`
   display: inline-block;
   padding: 0.5rem;
-  margin: 2.5rem auto;
+  margin-bottom: 2.5rem;
   border-radius: 5px;
   text-align: center;
   background-color: ${(props: Props) => {
