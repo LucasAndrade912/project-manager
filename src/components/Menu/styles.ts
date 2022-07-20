@@ -8,17 +8,34 @@ export const Container = styled.div`
   height: 100vh;
   padding: 2rem;
   background-color: #FFF;
+  
+  @media (max-width: 375px) {
+    height: auto;
+    padding: 0.75rem 1.5rem;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
 `
 
 export const Logo = styled.img`
   width: 5rem;
   margin-bottom: 10rem;
+
+  @media (max-width: 375px) {
+    width: 2.25rem;
+    margin: 0;
+  }
 `
 
 export const Buttons = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  @media (max-width: 375px) {
+    display: none;
+  }
 `
 
 export const Button = styled.button`
@@ -42,4 +59,34 @@ export const Button = styled.button`
 
 export const ButtonIcon = styled.img`
   width: 1.5rem;
+`
+
+export const MenuHamburger = styled.img`
+  width: 2.25rem;
+
+  @media (min-width: 375px) {
+    display: none;
+  }
+`
+
+export const MenuExpanded = styled.div`
+  position: sticky;
+  top: 60px;
+  background-color: #FFF;
+`
+
+export const MenuButton = styled.button`
+  display: flex;
+  align-items: center;
+  background: none;
+  border: none;
+  border-top: 1px solid rgba(0, 0, 0, 0.15);
+  padding: 0.75rem 1.5rem;
+  width: 100%;
+  display: flex;
+`
+
+export const MenuButtonIcon = styled.img`
+  width: 1.125rem;
+  margin-right: 0.75rem;
 `
