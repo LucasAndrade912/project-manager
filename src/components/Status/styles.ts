@@ -22,9 +22,18 @@ export const StatusColor = styled.div`
 			return '#16ABFE'
 		}
 	}};
+
+  @media (max-width: 375px) {
+    width: 0.875rem;
+    height: 0.875rem;
+  }
 `
 
 export const StatusTitle = styled.p`
   font-size: 1.125rem;
   margin-left: 0.625rem;
+
+  @media (max-width: 375px) {
+    font-size: 0.75rem;
+  }
 `

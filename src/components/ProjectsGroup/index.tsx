@@ -4,7 +4,7 @@ import { useDrop } from 'react-dnd'
 import { ProjectCard, Status } from '..'
 import { ProjectProps } from '../ProjectCard'
 
-import { Container } from './styles'
+import { Container, Projects } from './styles'
 
 interface ProjectsGroupProps {
   status: 'to-do' | 'in-progress' | 'done'
@@ -23,11 +23,14 @@ const ProjectsGroup = ({ status, data, updateData }: ProjectsGroupProps) => {
 	return (
 		<Container ref={dropRef}>
 			<Status status={status} />
-			{
-				data?.map(project => (
-					<ProjectCard key={project.id} { ...project } />
-				))
-			}
+			
+			<Projects>
+				{
+					data?.map(project => (
+						<ProjectCard key={project.id} { ...project } />
+					))
+				}
+			</Projects>
 		</Container>
 	)
 }

@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 export const Container = styled.div`
-  width: 100%;
+  min-width: 100%;
   background-color: #FFF;
   padding: 1rem;
   border-radius: 5px;
@@ -11,6 +11,10 @@ export const Container = styled.div`
   :hover {
     cursor: move;
   }
+
+  @media (max-width: 375px) {
+    box-shadow: none;
+  }
 `
 
 export const Image = styled.img`
@@ -18,6 +22,10 @@ export const Image = styled.img`
   height: 6.25rem;
   object-fit: cover;
   border-radius: 5px;
+
+  @media (max-width: 375px) {
+    height: 3.125rem;
+  }
 `
 
 export const ProjectTitle = styled.h2`
@@ -28,8 +36,17 @@ export const ProjectTitle = styled.h2`
     cursor: pointer;
     text-decoration: underline;
   }
+
+  @media (max-width: 375px) {
+    font-size: 1rem;
+    margin: 0.5rem 0;
+  }
 `
 
 export const ProjectDescription = styled.p`
   font-size: 0.875rem;
+
+  @media (max-width: 375px) {
+    font-size: 0.625rem;
+  }
 `

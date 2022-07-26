@@ -9,5 +9,9 @@ export const Container = styled.div`
   font-size: 0.875rem;
   background-color: ${(props: { color: string }) => {
 		return props.color
-	}}
+	}};
+
+  @media (max-width: 375px) {
+    font-size: 0.625rem;
+  }
 `
