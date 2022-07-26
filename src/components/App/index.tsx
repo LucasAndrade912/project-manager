@@ -3,6 +3,8 @@
 import React, { useState, useEffect, createContext } from 'react'
 import { createPortal } from 'react-dom'
 import { Outlet, useLocation, useNavigate } from 'react-router-dom'
+import { DndProvider } from 'react-dnd-multi-backend'
+import HTML5toTouch from 'react-dnd-multi-backend/dist/esm/HTML5toTouch'
 
 import Store from '../../store'
 import { Menu, Modal, ProjectForm, TaskForm, TagForm } from '..'
@@ -52,24 +54,26 @@ const App = () => {
 
 	return (
 		<Store>
-			<Container>
-				<Menu openModal={openModal} />
+			<DndProvider options={HTML5toTouch}>
+				<Container>
+					<Menu openModal={openModal} />
 
-				<OutletContext.Provider value={{ openModal, idProjectSelected, setIdProjectSelected }}>
-					<Outlet />
-				</OutletContext.Provider>
-			
-				{ isModalOpened && createPortal(
-					<Modal>
-						{
-							modalType === 'project' ? <ProjectForm closeModal={closeModal} /> :
-							modalType === 'task' ? <TaskForm closeModal={closeModal} idProjectSelected={idProjectSelected} /> :
-							modalType === 'tag' ? <TagForm closeModal={closeModal} /> : null
-						}
-					</Modal>,
-					document.querySelector('#modal')!
-				) }
-			</Container>
+					<OutletContext.Provider value={{ openModal, idProjectSelected, setIdProjectSelected }}>
+						<Outlet />
+					</OutletContext.Provider>
+				
+					{ isModalOpened && createPortal(
+						<Modal>
+							{
+								modalType === 'project' ? <ProjectForm closeModal={closeModal} /> :
+								modalType === 'task' ? <TaskForm closeModal={closeModal} idProjectSelected={idProjectSelected} /> :
+								modalType === 'tag' ? <TagForm closeModal={closeModal} /> : null
+							}
+						</Modal>,
+						document.querySelector('#modal')!
+					) }
+				</Container>
+			</DndProvider>
 		</Store>
 	)
 }
