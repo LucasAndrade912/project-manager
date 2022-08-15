@@ -1,5 +1,6 @@
 import React, { FormEvent, useContext, useEffect, useState } from 'react'
 
+import Loading from '../Loading'
 import { AppContext } from '../../store'
 import { CloseIcon } from '../../assets'
 import { usePost } from '../../hooks/usePost'
@@ -18,6 +19,7 @@ interface Color {
 
 const TagForm = ({ closeModal }: TagFormProps) => {
 	const { state: { colors }, dispatch } = useContext(AppContext)
+	const [isSubmitting, setIsSubmitting] = useState(false)
 	const [tagText, setTagText] = useState('')
 	const [colorSelected, setColorSelected] = useState<Color>()
 	const request = usePost()
@@ -32,6 +34,7 @@ const TagForm = ({ closeModal }: TagFormProps) => {
 
 	const handleCreateTag = async (event: FormEvent) => {
 		event.preventDefault()
+		setIsSubmitting(true)
 
 		const idTag: number | undefined = await request('/tags', {
 			tagName: tagText,
@@ -46,6 +49,7 @@ const TagForm = ({ closeModal }: TagFormProps) => {
 			} })
 		}
 
+		setIsSubmitting(false)
 		closeModal()
 	}
 
@@ -95,8 +99,8 @@ const TagForm = ({ closeModal }: TagFormProps) => {
 						</Tag>
 					</div>
 
-					<Submit style={{ marginTop: 0 }} type="submit">
-						Criar tag
+					<Submit style={{ marginTop: 0 }} type="submit" disabled={isSubmitting}>
+						{ isSubmitting ? <Loading size="1.5rem" color="#FFF" /> : 'Criar tag' }
 					</Submit>
 				</>
 			) }

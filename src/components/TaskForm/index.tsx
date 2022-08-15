@@ -1,6 +1,7 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { useForm } from 'react-hook-form'
 
+import Loading from '../Loading'
 import { CloseIcon } from '../../assets'
 import { AppContext } from '../../store'
 import { usePost } from '../../hooks/usePost'
@@ -15,10 +16,13 @@ interface TaskFormProps {
 
 const TaskForm = ({ closeModal, idProjectSelected }: TaskFormProps) => {
 	const { dispatch } = useContext(AppContext)
+	const [isSubmitting, setIsSubmitting] = useState(false)
 	const { register, handleSubmit, formState: { errors } } = useForm<{ task: string }>()
 	const request = usePost()
 
 	const handleCreateTask = async (data: { task: string }) => {
+		setIsSubmitting(true)
+
 		const id = await request('/tasks', {
 			idProject: idProjectSelected,
 			taskName: data.task
@@ -29,6 +33,8 @@ const TaskForm = ({ closeModal, idProjectSelected }: TaskFormProps) => {
 			idTask: id,
 			task: data.task
 		} })
+
+		setIsSubmitting(false)
 		closeModal()
 	}
 
@@ -48,8 +54,8 @@ const TaskForm = ({ closeModal, idProjectSelected }: TaskFormProps) => {
 					{...register('task', { required: 'Task name is required' })}
 				/>
 
-				<SubmitButton type="submit">
-          +
+				<SubmitButton type="submit" disabled={isSubmitting}>
+					{ isSubmitting ? <Loading size="1rem" color="#FFF" /> : '+' }
 				</SubmitButton>
 			</Field>
 			{ errors.task && <ErrorMessage>{ errors.task.message }</ErrorMessage> }

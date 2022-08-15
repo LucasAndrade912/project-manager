@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form'
 import { AppContext } from '../../store'
 import { CloseIcon } from '../../assets'
 import { usePost } from '../../hooks/usePost'
+import Loading from '../Loading'
 
 import {
 	Header,
@@ -31,7 +32,7 @@ interface FormData {
 const ProjectForm = ({ closeModal }: FormProps) => {
 	const { state: { tags }, dispatch } = useContext(AppContext)
 	const [selectedTags, setSelectedTags] = useState<number[]>([])
-	const { register, handleSubmit, formState: { errors } } = useForm<FormData>()
+	const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<FormData>()
 	const request = usePost()
 
 	const selectTag = (id: number) => {
@@ -109,8 +110,12 @@ const ProjectForm = ({ closeModal }: FormProps) => {
 				</Tags>
 			</Section>
 
-			<Submit type="submit">
-				Criar Projeto
+			<Submit type="submit" disabled={isSubmitting}>
+				{
+					isSubmitting
+						? <Loading size="1.5rem" color="#FFF" />
+						: 'Criar Projeto'
+				}
 			</Submit>
 		</form>
 	)

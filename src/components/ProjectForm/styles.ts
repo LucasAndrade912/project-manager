@@ -81,6 +81,9 @@ export const Tag = styled.div`
 `
 
 export const Submit = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 100%;
   margin-top: 2rem;
   font-size: 1rem;
